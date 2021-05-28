@@ -14,4 +14,5 @@ public class CastMenber {
     private Date deathDate;
     private String deathState;
     private String deathCountry;
+    private String deathCity;
 }
