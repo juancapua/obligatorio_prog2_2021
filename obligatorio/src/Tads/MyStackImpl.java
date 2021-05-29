@@ -1,41 +1,17 @@
 package Tads;
 
-public class MyLinkedListimpl<T> implements MyList<T>{
+public class MyStackImpl<T> implements MyStack<T> {
 
     private Nodo<T> first;
 
     private Nodo<T> last;
 
-    public MyLinkedListimpl() {
+    public MyStackImpl() {
         this.first = null;
         this.last = null;
     }
 
-
-    public void add(T value) {
-        addToTheEnd(value);
-    }
-
-    private void addToBeginning(T value) {
-        if (value != null) {
-
-            Nodo<T> elementToAdd = new Nodo<>(value);
-
-            if (this.first == null) {
-
-                this.first = elementToAdd;
-                this.last = elementToAdd;
-
-            } else {
-
-                elementToAdd.setNext(this.first);
-                this.first = elementToAdd;
-            }
-
-        }
-    }
-
-    private void addToTheEnd(T value) {
+    public void push(T value) {
         if (value != null) {
 
             Nodo<T> elementToAdd = new Nodo<>(value);
@@ -54,45 +30,38 @@ public class MyLinkedListimpl<T> implements MyList<T>{
         }
     }
 
-    public T get(int position) {
-        T valueToReturn = null;
-        int tempPosition = 0;
-        Nodo<T> temp = this.first;
+    public T pop() throws EmptyStackException {
+        if (this.last == null) {
 
-        while (temp != null && tempPosition != position) {
-
-            temp = temp.getNext();
-            tempPosition++;
-
+            throw new EmptyStackException();
         }
 
-        if (tempPosition == position) {
+        return eliminarUltimo();
+    }
 
+    public T peek() {
+        T valueToReturn = null;
 
-            valueToReturn = temp.getValue();
-
+        if (this.last != null) {
+            valueToReturn = this.last.getValue();
         }
 
         return valueToReturn;
     }
 
-    public boolean contains(T value) {
-        boolean contains = false;
+    public int size() {
+        int size = 0;
+
         Nodo<T> temp = this.first;
 
-        while (temp != null && !temp.getValue().equals(value)) {
+        while (temp != null) {
 
             temp = temp.getNext();
+            size++;
 
         }
 
-        if (temp != null) {
-
-            contains = true;
-
-        }
-
-        return contains;
+        return size;
     }
 
     public void remove(T value) {
@@ -147,20 +116,4 @@ public class MyLinkedListimpl<T> implements MyList<T>{
 
         return valueToRemove;
     }
-
-    public int size() {
-        int size = 0;
-
-        Nodo<T> temp = this.first;
-
-        while (temp != null) {
-
-            temp = temp.getNext();
-            size++;
-
-        }
-
-        return size;
-    }
-
 }
