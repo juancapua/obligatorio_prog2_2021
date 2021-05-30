@@ -27,6 +27,7 @@ public class Principal {
                     case 3:
                         System.out.println("Programa finalizado");
                         auxiliar = false;
+                        break;
 
                     default:
                         System.out.println("Opcion incorrecta");

@@ -25,6 +25,7 @@ public class CastMenber {
     private int divorces;
     private int spousesWithChildren;
     private int children;
+    private ArrayList<CauseOfDeath> causeOfDeaths;
 
     public CastMenber(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spousesString, int spouses, int divorces, int spousesWithChildren, int children) {
         this.imdbNameid = imdbNameid;
@@ -45,7 +46,7 @@ public class CastMenber {
         this.divorces = divorces;
         this.spousesWithChildren = spousesWithChildren;
         this.children = children;
-        ArrayList<CauseOfDeath> CauseOfDeath = new ArrayList<CauseOfDeath>();
+        this.causeOfDeaths = new ArrayList<CauseOfDeath>();
 
 
     }
@@ -192,5 +193,13 @@ public class CastMenber {
 
     public void setChildren(int children) {
         this.children = children;
+    }
+
+    public ArrayList<CauseOfDeath> getCauseOfDeaths() {
+        return causeOfDeaths;
+    }
+
+    public void addCauseOfDeaths(CauseOfDeath causa) {
+        this.causeOfDeaths.add(causa);
     }
 }

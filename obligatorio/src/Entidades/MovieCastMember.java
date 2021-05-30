@@ -1,19 +1,23 @@
 package Entidades;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MovieCastMember {
 
     private int ordering;
     private String category;
     private String job;
-    private List<String> characters;
+    private ArrayList<String> characters;
+    private CastMenber castMemeber;
+    private Movie movie;
 
-    public MovieCastMember(int ordering, String category, String job, List<String> characters) {
+    public MovieCastMember(int ordering, String category, String job, CastMenber castMemeber, Movie movie) {
         this.ordering = ordering;
         this.category = category;
         this.job = job;
-        this.characters = characters;
+        this.characters = new ArrayList<>();
+        this.castMemeber = castMemeber;
+        this.movie = movie;
     }
 
     public int getOrdering() {
@@ -40,11 +44,27 @@ public class MovieCastMember {
         this.job = job;
     }
 
-    public List<String> getCharacters() {
+    public ArrayList<String> getCharacters() {
         return characters;
     }
 
-    public void setCharacters(List<String> characters) {
-        this.characters = characters;
+    public void setCharacters(String character) {
+        this.characters.add(character);
+    }
+
+    public CastMenber getCastMemeber() {
+        return castMemeber;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setCastMemeber(CastMenber castMemeber) {
+        this.castMemeber = castMemeber;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

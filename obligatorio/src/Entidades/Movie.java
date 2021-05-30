@@ -27,8 +27,9 @@ public class Movie {
     private float metaScore;
     private float reviewsFromUsers;
     private float reviewsFromCritics;
+    private MovieRating movieRating;
 
-    public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, List<String> genre, int duration, List<String> country, String language, List<String> director, List<String> writer, String productionCompany, List<String> actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics) {
+    public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, List<String> genre, int duration, List<String> country, String language, List<String> director, List<String> writer, String productionCompany, List<String> actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics, MovieRating movieRating) {
         this.imdbTitleld = imdbTitleld;
         this.title = title;
         this.originalTitle = originalTitle;
@@ -51,6 +52,7 @@ public class Movie {
         this.metaScore = metaScore;
         this.reviewsFromUsers = reviewsFromUsers;
         this.reviewsFromCritics = reviewsFromCritics;
+        this.movieRating = movieRating;
     }
 
     public String getImdbTitleld() {
@@ -227,5 +229,13 @@ public class Movie {
 
     public void setReviewsFromCritics(float reviewsFromCritics) {
         this.reviewsFromCritics = reviewsFromCritics;
+    }
+
+    public MovieRating getMovieRating() {
+        return movieRating;
+    }
+
+    public void setMovieRating(MovieRating movieRating) {
+        this.movieRating = movieRating;
     }
 }
