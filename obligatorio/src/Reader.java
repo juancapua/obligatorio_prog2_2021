@@ -22,6 +22,7 @@ public class Reader {
             while((this.line = bufer.readLine()) != null){
                 String[] linea = this.line.split(",");
                 // FIXME falta devolver la linea
+                
             }
 
         } catch (FileNotFoundException e) {
