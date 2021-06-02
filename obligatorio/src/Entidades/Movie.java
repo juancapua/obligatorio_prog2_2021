@@ -52,7 +52,7 @@ public class Movie {
         this.metaScore = metaScore;
         this.reviewsFromUsers = reviewsFromUsers;
         this.reviewsFromCritics = reviewsFromCritics;
-        this.movieRating = movieRating;
+        this.movieRating = null;
     }
 
     public String getImdbTitleld() {
