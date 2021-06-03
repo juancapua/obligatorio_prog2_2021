@@ -11,26 +11,27 @@ public class CloseHashImpl<K, V> implements MyHash<K, V> {
     private int defaultCollisionFunction = CloseHashImpl.LINEAL_COLLISION_FUNCTION;
 
     public CloseHashImpl(int size) {
+
         this.hashTable = new HashNode[size];
     }
 
     public void put(K key, V value) {
-        int attempt = 0;
-        int position = internalHashcodeWithCollision(key, attempt);
+        int intentos = 0;
+        int position = internalHashcodeWithCollision(key, intentos);
 
         HashNode<K, V> valueToInsert = new HashNode<>(key, value);
 
         while (hashTable[position] != null &&
                 !hashTable[position].isRemoved() &&
                 !hashTable[position].getKey().equals(key) &&
-                !(attempt > hashTable.length)) {
+                !(intentos > hashTable.length)) {
 
-            attempt++;
-            position = internalHashcodeWithCollision(key, attempt);
+            intentos++;
+            position = internalHashcodeWithCollision(key, intentos);
 
         }
 
-        if (attempt > hashTable.length) {
+        if (intentos > hashTable.length) {
 
             throw new RuntimeException("No se encontro lugar disponible");
         }
@@ -39,7 +40,7 @@ public class CloseHashImpl<K, V> implements MyHash<K, V> {
 
             hashTable[position] = valueToInsert;
 
-        } else { // Si sale por aca es porque ya existe un elemento en la clave con lo que hay que sustituir el valor
+        } else {
 
             hashTable[position].setValue(value);
         }
@@ -48,21 +49,21 @@ public class CloseHashImpl<K, V> implements MyHash<K, V> {
     }
 
     public V get(K key) {
-        int attempt = 0;
-        int position = internalHashcodeWithCollision(key, attempt);
+        int intentos = 0;
+        int position = internalHashcodeWithCollision(key, intentos);
         V valueToReturn = null;
 
         while (hashTable[position] != null &&
                 !hashTable[position].getKey().equals(key) &&
-                !(attempt > hashTable.length)) {
+                !(intentos > hashTable.length)) {
 
-            attempt++;
-            position = internalHashcodeWithCollision(key, attempt);
+            intentos++;
+            position = internalHashcodeWithCollision(key, intentos);
 
         }
 
         if (hashTable[position] != null &&
-                !(attempt > hashTable.length) &&
+                !(intentos > hashTable.length) &&
                 hashTable[position].getKey().equals(key) &&
                 !hashTable[position].isRemoved()) {
 
@@ -75,24 +76,25 @@ public class CloseHashImpl<K, V> implements MyHash<K, V> {
 
 
     public int size() {
+
         return this.size;
     }
 
     public void remove(K key) {
-        int attempt = 0;
-        int position = internalHashcodeWithCollision(key, attempt);
+        int intentos = 0;
+        int position = internalHashcodeWithCollision(key, intentos);
 
         while(hashTable[position] != null &&
                 !hashTable[position].getKey().equals(key) &&
-                !(attempt > hashTable.length)) {
+                !(intentos > hashTable.length)) {
 
-            attempt++;
-            position = internalHashcodeWithCollision(key, attempt);
+            intentos++;
+            position = internalHashcodeWithCollision(key, intentos);
 
         }
 
         if (hashTable[position] != null &&
-                !(attempt > hashTable.length) &&
+                !(intentos > hashTable.length) &&
                 hashTable[position].getKey().equals(key) &&
                 !hashTable[position].isRemoved()) {
 
