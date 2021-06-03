@@ -16,7 +16,7 @@ public class Reader {
         this.line = null;
     }
 
-    public void cargaDatos(String path){
+    public void cargaDatos(String path, Integer queCargo){
 
         try{
 
@@ -31,8 +31,7 @@ public class Reader {
                     System.out.print(linea[i] + "| ");}
                 System.out.print("\n");
                 counter++;
-                if (counter>2){break;}
-                // FIXME falta devolver la linea
+                cargarAlSistema(linea, queCargo);
 
             }
 
@@ -42,6 +41,19 @@ public class Reader {
             e.printStackTrace();
         }
 
+    }
+
+    private void cargarAlSistema(String[] linea, Integer queCargo) {
+        switch (queCargo){
+            case 0:
+                if (linea[5]==null){}
+            case 1:
+                return;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
     }
 
     public String[] separarPeroBien(String entrada){
