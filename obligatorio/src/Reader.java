@@ -47,6 +47,7 @@ public class Reader {
         switch (queCargo){
             case 0:
                 if (linea[5]==null){}
+                
             case 1:
                 return;
             case 2:
