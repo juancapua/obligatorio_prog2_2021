@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,14 +11,14 @@ public class Movie {
     private String originalTitle;
     private int year;
     private Date datePublished;
-    private List<String> genre;
+    private String[] genre;
     private int duration;
-    private List<String> country;
+    private String[] country;
     private String language;
-    private List<String> director;
-    private List<String> writer;
+    private String[] director;
+    private String[] writer;
     private String productionCompany;
-    private List<String> actors;
+    private String[] actors;
     private String description;
     private float avgVote;
     private int votes;
@@ -29,7 +30,7 @@ public class Movie {
     private float reviewsFromCritics;
     private MovieRating movieRating;
 
-    public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, List<String> genre, int duration, List<String> country, String language, List<String> director, List<String> writer, String productionCompany, List<String> actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics, MovieRating movieRating) {
+    public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, String[] genre, int duration, String[] country, String language, String[] director, String[] writer, String productionCompany, String[] actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics) {
         this.imdbTitleld = imdbTitleld;
         this.title = title;
         this.originalTitle = originalTitle;
@@ -52,6 +53,35 @@ public class Movie {
         this.metaScore = metaScore;
         this.reviewsFromUsers = reviewsFromUsers;
         this.reviewsFromCritics = reviewsFromCritics;
+        this.movieRating = null;
+    }
+
+    public Movie(String[] datos) {
+        this.imdbTitleld = datos[0];
+        this.title = datos[1];
+        this.originalTitle = datos[2];
+        this.year = Integer.parseInt(datos[3]);
+        try {
+            this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse(datos[4]);
+        }catch (Exception e){;}
+
+        this.genre = datos[5].replace("\"", "").split(",");
+        this.duration = Integer.parseInt(datos[6]);
+        this.country = datos[7].replace("\"", "").split(",");
+        this.language = datos[8];
+        this.director = datos[9].replace("\"", "").split(",");
+        this.writer = datos[10].replace("\"", "").split(",");
+        this.productionCompany = datos[11];
+        this.actors = datos[12].replace("\"", "").split(",");
+        this.description = datos[13];
+        this.avgVote = Integer.parseInt(datos[14]);
+        this.votes = Integer.parseInt(datos[15]);
+        this.budget = datos[16];
+        this.usaGrossIncome = datos[17];
+        this.worldwideGrossIncome = datos[18];
+        this.metaScore = Float.parseFloat(datos[19]);;
+        this.reviewsFromUsers = Float.parseFloat(datos[20]);
+        this.reviewsFromCritics = Float.parseFloat(datos[21]);
         this.movieRating = null;
     }
 
@@ -95,11 +125,11 @@ public class Movie {
         this.datePublished = datePublished;
     }
 
-    public List<String> getGenre() {
+    public String[] getGenre() {
         return genre;
     }
 
-    public void setGenre(List<String> genre) {
+    public void setGenre(String[] genre) {
         this.genre = genre;
     }
 
@@ -111,11 +141,11 @@ public class Movie {
         this.duration = duration;
     }
 
-    public List<String> getCountry() {
+    public String[] getCountry() {
         return country;
     }
 
-    public void setCountry(List<String> country) {
+    public void setCountry(String[] country) {
         this.country = country;
     }
 
@@ -127,19 +157,19 @@ public class Movie {
         this.language = language;
     }
 
-    public List<String> getDirector() {
+    public String[] getDirector() {
         return director;
     }
 
-    public void setDirector(List<String> director) {
+    public void setDirector(String[] director) {
         this.director = director;
     }
 
-    public List<String> getWriter() {
+    public String[] getWriter() {
         return writer;
     }
 
-    public void setWriter(List<String> writer) {
+    public void setWriter(String[] writer) {
         this.writer = writer;
     }
 
@@ -151,11 +181,11 @@ public class Movie {
         this.productionCompany = productionCompany;
     }
 
-    public List<String> getActors() {
+    public String[] getActors() {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(String[] actors) {
         this.actors = actors;
     }
 
