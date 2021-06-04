@@ -20,6 +20,7 @@ public class Reader<K, V> {
         this.line = null;
     }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     public void cargaDatos(String path, Integer queCargo){
 =======
@@ -27,6 +28,9 @@ public class Reader<K, V> {
 
         //FIXME hacer los casos para cada clase
 >>>>>>> Stashed changes
+=======
+    public void cargaDatos(String path, Integer queCargo){
+>>>>>>> main
 
         try{
 
@@ -42,8 +46,11 @@ public class Reader<K, V> {
                 System.out.print("\n");
                 counter++;
                 cargarAlSistema(linea, queCargo);
+<<<<<<< HEAD
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 
             }
 
