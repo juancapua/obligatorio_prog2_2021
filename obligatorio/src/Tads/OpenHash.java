@@ -8,7 +8,7 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
     private int size;
     private ArrayList<HashNode<K, V>>[] hash;
 
-    public OpenHash(int size, int mod) {
+    public OpenHash(int size) {
         this.size = size;
         hash = new ArrayList[size];
     }

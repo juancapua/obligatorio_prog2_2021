@@ -1,6 +1,9 @@
 import Entidades.CastMenber;
+import Entidades.Movie;
+import Entidades.MovieCastMember;
 import Tads.CloseHashImpl;
 import Tads.MyHash;
+import Tads.OpenHash;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,96 +15,108 @@ import java.util.regex.Pattern;
 
 public class Reader<K, V> {
 
-    private String path;
-    private String line;
+    public static String path1;
+    public static String path2;
+    public static String path3;
+    public static String path4;
 
-    public Reader(String path) {
-        this.path = path;
-        this.line = null;
-    }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    public void cargaDatos(String path, Integer queCargo){
-=======
-    public void cargaDatos(MyHash<K, V> hashTable, int opcion){
+    public static OpenHash<String, CastMenber> castMemberHash = new OpenHash<>(370000);
+    public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
+    public static OpenHash<String, MovieCastMember> movieCastMemeberHash = new OpenHash<>(110000);
 
-        //FIXME hacer los casos para cada clase
->>>>>>> Stashed changes
-=======
-    public void cargaDatos(String path, Integer queCargo){
->>>>>>> main
 
-        try{
+    public void cargaDatos() {
 
-            BufferedReader bufer = new BufferedReader(new FileReader(this.path));
+        System.out.println("Cargando datos...");
 
-            while((this.line = bufer.readLine()) != null){
-                String[] linea = separarPeroBien(line);
-<<<<<<< Updated upstream
-                System.out.print(counter + ": ");
-                for (int i = 0; i < linea.length; i++){
-                    if( linea[i]==null){break;}
-                    System.out.print(linea[i] + "| ");}
-                System.out.print("\n");
-                counter++;
-                cargarAlSistema(linea, queCargo);
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> main
+        String linea = null;
+
+        try {
+
+            BufferedReader bufer1 = new BufferedReader(new FileReader(path1));
+
+            while ((linea = bufer1.readLine()) != null) {
+                String[] lecturaLinea = separarPeroBien(linea);
+                //aca iria la carga del path 1 a su hash
 
             }
-
-        } catch (FileNotFoundException e) {
+        } catch(FileNotFoundException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch(IOException e){
             e.printStackTrace();
         }
 
-    }
+        try {
 
-    private void cargarAlSistema(String[] linea, Integer queCargo) {
-        switch (queCargo){
-            case 0:
-                if (linea[5]==null){}
-                
-            case 1:
-                return;
-            case 2:
-                break;
-            case 3:
-                break;
+            BufferedReader bufer2 = new BufferedReader(new FileReader(path2));
+
+            while ((linea = bufer2.readLine()) != null) {
+                String[] lecturaLinea = separarPeroBien(linea);
+                //aca iria la carga del path 2 a su hash
+
+            }
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        } catch(IOException e){
+            e.printStackTrace();
         }
+
+        try {
+
+            BufferedReader bufer3 = new BufferedReader(new FileReader(path3));
+
+            while ((linea = bufer3.readLine()) != null) {
+                String[] lecturaLinea = separarPeroBien(linea);
+                //aca iria la carga del path 3 a su hash
+
+            }
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+
+        try {
+
+            BufferedReader bufer4 = new BufferedReader(new FileReader(path4));
+
+            while ((linea = bufer4.readLine()) != null) {
+                String[] lecturaLinea = separarPeroBien(linea);
+                //aca iria la carga del path 4 a su hash
+
+            }
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+
+        System.out.println("Datos cargados");
+
     }
 
-    public String[] separarPeroBien(String entrada){
+    public String[] separarPeroBien (String entrada){
         final String regex = ",(\"([^\"]*)\"|[^,]*)";
-        final String text= entrada;
+        final String text = entrada;
 
         final Pattern pattern = Pattern.compile(regex);
         final Matcher matcher = pattern.matcher("," + text);
 
         String elemento;
-        String[] separado=new String[17];
+        String[] separado = new String[17];
         int n = -1;
 
         while (matcher.find()) {
-            if (matcher.group(2) != null)
-            {
+            if (matcher.group(2) != null) {
                 elemento = matcher.group(2);
-            }
-            else
-            {
+            } else {
                 elemento = matcher.group(1);
             }
-             separado[++n]= elemento;
+            separado[++n] = elemento;
         }
         return separado;
     }
 
-    public String getPath() {
-        return path;
-    }
 }
+
