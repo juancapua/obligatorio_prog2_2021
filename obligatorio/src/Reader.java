@@ -1,3 +1,7 @@
+import Entidades.CastMenber;
+import Tads.CloseHashImpl;
+import Tads.MyHash;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -6,7 +10,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Reader {
+public class Reader<K, V> {
 
     private String path;
     private String line;
@@ -16,23 +20,30 @@ public class Reader {
         this.line = null;
     }
 
-    public void cargaDatos(String path){
+<<<<<<< Updated upstream
+    public void cargaDatos(String path, Integer queCargo){
+=======
+    public void cargaDatos(MyHash<K, V> hashTable, int opcion){
+
+        //FIXME hacer los casos para cada clase
+>>>>>>> Stashed changes
 
         try{
 
-            BufferedReader bufer = new BufferedReader(new FileReader(path));
-            int counter = 0;
+            BufferedReader bufer = new BufferedReader(new FileReader(this.path));
 
             while((this.line = bufer.readLine()) != null){
                 String[] linea = separarPeroBien(line);
+<<<<<<< Updated upstream
                 System.out.print(counter + ": ");
                 for (int i = 0; i < linea.length; i++){
                     if( linea[i]==null){break;}
                     System.out.print(linea[i] + "| ");}
                 System.out.print("\n");
                 counter++;
-                if (counter>2){break;}
-                // FIXME falta devolver la linea
+                cargarAlSistema(linea, queCargo);
+=======
+>>>>>>> Stashed changes
 
             }
 
@@ -42,6 +53,19 @@ public class Reader {
             e.printStackTrace();
         }
 
+    }
+
+    private void cargarAlSistema(String[] linea, Integer queCargo) {
+        switch (queCargo){
+            case 0:
+                if (linea[5]==null){}
+            case 1:
+                return;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
     }
 
     public String[] separarPeroBien(String entrada){
@@ -57,8 +81,8 @@ public class Reader {
 
         while (matcher.find()) {
             if (matcher.group(2) != null)
-            {   // Elemento entre comillas?
-                elemento = matcher.group(2); // Obtener el texto sin las comillas
+            {
+                elemento = matcher.group(2);
             }
             else
             {
