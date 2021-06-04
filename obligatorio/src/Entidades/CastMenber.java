@@ -203,14 +203,4 @@ public class CastMenber {
         this.causeOfDeaths.add(causa);
     }
 
-    @Override
-    public int hashCode() {
-        int hashCode = 0;
-
-        for (int i = 0; i < this.imdbNameid.length(); i++) {
-            hashCode += this.imdbNameid.charAt(i);
-        }
-
-        return hashCode;
-    }
 }

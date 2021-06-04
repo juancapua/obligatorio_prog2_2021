@@ -8,5 +8,5 @@ public interface MyHash<K, V> {
 
     int size();
 
-    void remove(K key);
+    void remove(K key) throws KeyNotFoundException;
 }

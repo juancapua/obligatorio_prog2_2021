@@ -33,10 +33,10 @@ public class Principal {
 
                         //carga de datos castMember
 
-                        MyHash<Integer, CastMenber> Hash_castMember = new CloseHashImpl<>(370000);
+                        //MyHash<Integer, CastMenber> Hash_castMember = new CloseHashImpl<>(370000);
 
                         Reader reader_castMember = new Reader("C:\\Users\\juan\\Desktop\\Facultad\\programacion 2\\obligatorio\\obligatorio_prog2_2021\\Data\\IMDB names.csv");
-                        reader_castMember.cargaDatos(Hash_castMember, 1);
+                        //reader_castMember.cargaDatos(Hash_castMember, 1);
 
                         //carga de datos movies
 

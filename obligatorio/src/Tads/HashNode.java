@@ -14,6 +14,13 @@ public class HashNode<K, V> {
         this.removed = false;
     }
 
+    public HashNode(K key, V value, boolean removed) {
+        this.key = key;
+        this.value = value;
+        this.removed = removed;
+    }
+
+
     public K getKey() {
         return key;
     }

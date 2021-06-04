@@ -269,14 +269,4 @@ public class Movie {
         this.movieRating = movieRating;
     }
 
-    @Override
-    public int hashCode() {
-        int hashCode = 0;
-
-        for (int i = 0; i < this.imdbTitleld.length(); i++) {
-            hashCode += this.imdbTitleld.charAt(i);
-        }
-
-        return hashCode;
-    }
 }

@@ -1,121 +1,200 @@
 package Tads;
 
-public class CloseHashImpl<K, V> implements MyHash<K, V> {
-
-    private static int LINEAL_COLLISION_FUNCTION = 1;
-
-    private HashNode<K, V>[] hashTable;
+public class CloseHashImpl<K extends Comparable<K>, V> implements MyHash<K, V> {
 
     private int size;
+    private HashNode<K, V>[] hash;
+    private int mod;
+    private ColissionManagement config;
 
-    private int defaultCollisionFunction = CloseHashImpl.LINEAL_COLLISION_FUNCTION;
-
-    public CloseHashImpl(int size) {
-
-        this.hashTable = new HashNode[size];
+    public CloseHashImpl(int size, int mod, ColissionManagement config) {
+        this.size = size;
+        hash = new HashNode[size];
+        this.mod = mod;
+        this.config = config;
     }
 
-    public void put(K key, V value) {
-        int intentos = 0;
-        int position = internalHashcodeWithCollision(key, intentos);
+    public void put(K key, V data) {
 
-        HashNode<K, V> valueToInsert = new HashNode<>(key, value);
+        int pos = hashFun(key);
 
-        while (hashTable[position] != null &&
-                !hashTable[position].isRemoved() &&
-                !hashTable[position].getKey().equals(key) &&
-                !(intentos > hashTable.length)) {
+        int counter = 0;
 
-            intentos++;
-            position = internalHashcodeWithCollision(key, intentos);
+        boolean isFull = false;
 
-        }
+        if (hash[pos] == null) {
 
-        if (intentos > hashTable.length) {
+            hash[pos] = new HashNode<K, V>(key, data, false);
 
-            throw new RuntimeException("No se encontro lugar disponible");
-        }
+        } else if (hash[pos].isRemoved() == true) {
 
-        if (hashTable[position] == null || hashTable[position].isRemoved()) {
-
-            hashTable[position] = valueToInsert;
+            hash[pos].setKey(key);
+            hash[pos].setValue(data);
+            hash[pos].setRemoved(false);
 
         } else {
 
-            hashTable[position].setValue(value);
-        }
+            int j = 0;
 
-        size++;
+            while (hash[pos] != null && hash[pos].isRemoved() == false && !isFull) {
+
+
+                counter++;
+
+                if (counter == size) isFull = true;
+
+                pos = nuevaColision(pos, j);
+            }
+
+            if (hash[pos] == null) {
+
+                hash[pos] = new HashNode<K, V>(key, data, false);
+
+            } else {
+
+                hash[pos].setKey(key);
+                hash[pos].setValue(data);
+                hash[pos].setRemoved(false);
+
+            }
+        }
     }
 
-    public V get(K key) {
-        int intentos = 0;
-        int position = internalHashcodeWithCollision(key, intentos);
-        V valueToReturn = null;
+    public V get(K key) throws KeyNotFoundException {
 
-        while (hashTable[position] != null &&
-                !hashTable[position].getKey().equals(key) &&
-                !(intentos > hashTable.length)) {
+        int posIni = hashFun(key);
 
-            intentos++;
-            position = internalHashcodeWithCollision(key, intentos);
+        int pos = hashFun(key);
+
+        int j = 0;
+
+        if (hash[pos] == null) throw new KeyNotFoundException();
+
+        else if (hash[pos].getKey().compareTo(key) == 0) return hash[pos].getValue();
+
+        else {
+
+            pos = nuevaColision(pos, j);
+
+            while (hash[pos] != null && pos != posIni && hash[pos].getKey().compareTo(key) != 0) {
+
+                pos = nuevaColision(pos, j);
+
+            }
+
+            if (hash[pos] == null || pos == posIni) throw new KeyNotFoundException();
+
+            return hash[pos].getValue();
 
         }
-
-        if (hashTable[position] != null &&
-                !(intentos > hashTable.length) &&
-                hashTable[position].getKey().equals(key) &&
-                !hashTable[position].isRemoved()) {
-
-            valueToReturn = hashTable[position].getValue();
-
-        }
-
-        return valueToReturn;
     }
 
-
+    @Override
     public int size() {
-
         return this.size;
     }
 
-    public void remove(K key) {
-        int intentos = 0;
-        int position = internalHashcodeWithCollision(key, intentos);
+    public int nuevaColision(int pos, int j) {
 
-        while(hashTable[position] != null &&
-                !hashTable[position].getKey().equals(key) &&
-                !(intentos > hashTable.length)) {
+        switch (config) {
+            case LINEAR:
+                pos = funcionLineal(pos) % size;
+                break;
 
-            intentos++;
-            position = internalHashcodeWithCollision(key, intentos);
+            case QUAD:
+                j++;
+                pos = funcionCuadratica(pos, j) % size;
+                break;
 
-        }
-
-        if (hashTable[position] != null &&
-                !(intentos > hashTable.length) &&
-                hashTable[position].getKey().equals(key) &&
-                !hashTable[position].isRemoved()) {
-
-            hashTable[position].setRemoved(true);
-        }
-
-    }
-
-    private int internalHashcodeWithCollision(K key, int attempt) {
-        return (key.hashCode() + collisionFunction(attempt)) % hashTable.length;
-    }
-
-    private int collisionFunction(int i) {
-        int value = 0;
-
-        if (defaultCollisionFunction == LINEAL_COLLISION_FUNCTION) {
-
-            value = i;
+            case CUBIC:
+                j++;
+                pos = funcionCubica(pos, j) % size;
+                break;
 
         }
 
-        return value;
+        return pos;
+
     }
+
+    private int funcionLineal(int pos) {
+        return pos + 1;
+    }
+
+    private int funcionCuadratica(int pos, int j) {
+        return pos + (int) Math.pow(j, 2);
+    }
+
+    private int funcionCubica(int pos, int j) {
+        return pos + (int) Math.pow(j, 3);
+    }
+
+    public boolean contains(K key) {
+
+        int posIni = hashFun(key);
+
+        int pos = hashFun(key);
+
+        int j = 0;
+
+        if (hash[pos] != null && hash[pos].getKey().compareTo(key) != 0) {
+
+            pos = nuevaColision(pos, j);
+
+        } else return hash[pos] != null;
+
+        do {
+
+            pos = nuevaColision(pos, j);
+
+        } while (hash[pos] != null && pos != posIni && hash[pos].getKey().compareTo(key) != 0);
+
+        return hash[pos] != null && pos != posIni;
+
+
+    }
+
+    private HashNode<K, V> get2(K key) throws KeyNotFoundException {
+
+        int posIni = hashFun(key);
+
+        int pos = hashFun(key);
+
+        int j = 0;
+
+        if (hash[pos] == null) throw new KeyNotFoundException();
+
+        else if (hash[pos].getKey().compareTo(key) == 0) return hash[pos];
+
+        else {
+
+            pos = nuevaColision(pos, j);
+
+            while (hash[pos] != null && pos != posIni && hash[pos].getKey().compareTo(key) != 0) {
+
+                pos = nuevaColision(pos, j);
+
+            }
+
+            if (hash[pos] == null || pos == posIni) throw new KeyNotFoundException();
+
+            return hash[pos];
+
+        }
+    }
+
+    public void remove(K key) throws KeyNotFoundException {
+
+        get2(key).setRemoved(true);
+
+    }
+
+    public int hashFun(K key) {
+        return key.hashCode() % mod;
+    }
+
+    public HashNode<K, V>[] getHash() {
+        return hash;
+    }
+
 }

@@ -1,19 +1,16 @@
 package Tads;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
     private int size;
     private ArrayList<HashNode<K, V>>[] hash;
-    private int mod;
 
     public OpenHash(int size, int mod) {
         this.size = size;
         hash = new ArrayList[size];
-        this.mod = mod;
     }
 
     @Override
@@ -81,7 +78,13 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
     }
 
     public int hashFun(K key) {
-        return key.hashCode() % mod;
+        int hashCode = 0;
+
+        for (int i = 0; i < key.toString().length(); i++) {
+            hashCode += key.toString().charAt(i);
+        }
+
+        return hashCode;
     }
 
     public ArrayList<HashNode<K, V>>[] getHash() {
@@ -95,4 +98,6 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
     public ArrayList<HashNode<K, V>> getTodos(K key) {
         return this.hash[hashFun(key)];
     }
+    
+    
 }
