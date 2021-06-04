@@ -2,133 +2,98 @@ package Tads;
 
 public class MyLinkedListimpl<T> implements MyList<T>{
 
-    private Nodo<T> first;
+    private Nodo<T> primero;
 
-    private Nodo<T> last;
+    private Nodo<T> ultimo;
 
     public MyLinkedListimpl() {
-        this.first = null;
-        this.last = null;
+        this.primero = null;
+        this.ultimo = null;
     }
 
 
     public void add(T value) {
-        addToTheEnd(value);
+        Nodo<T> nuevoNodo = new Nodo<>(value);
+
+        if (primero == null) {
+            primero = nuevoNodo;
+        } else {
+            Nodo<T> nodoActual = primero;
+            while (nodoActual.getSiguiente() != null) {
+                nodoActual = nodoActual.getSiguiente();
+            }
+            nodoActual.setSiguiente(nuevoNodo);
+        }
     }
 
     private void addToBeginning(T value) {
-        if (value != null) {
-
-            Nodo<T> elementToAdd = new Nodo<>(value);
-
-            if (this.first == null) {
-
-                this.first = elementToAdd;
-                this.last = elementToAdd;
-
-            } else {
-
-                elementToAdd.setNext(this.first);
-                this.first = elementToAdd;
-            }
-
-        }
+        Nodo<T> nuevoPrimerNodo = new Nodo<>(value);
+        nuevoPrimerNodo.setSiguiente(primero);
+        primero = nuevoPrimerNodo;
     }
 
-    private void addToTheEnd(T value) {
-        if (value != null) {
-
-            Nodo<T> elementToAdd = new Nodo<>(value);
-
-            if (this.first == null) {
-
-                this.first = elementToAdd;
-                this.last = elementToAdd;
-
-            } else {
-
-                this.last.setNext(elementToAdd);
-                this.last = elementToAdd;
-            }
-
-        }
-    }
 
     public T get(int position) {
-        T valueToReturn = null;
-        int tempPosition = 0;
-        Nodo<T> temp = this.first;
+        Nodo<T> nodoActual = primero;
+        T value = null;
+        int contador = 0;
 
-        while (temp != null && tempPosition != position) {
-
-            temp = temp.getNext();
-            tempPosition++;
-
+        while (contador < position) {
+            nodoActual = nodoActual.getSiguiente();
+            contador++;
         }
-
-        if (tempPosition == position) {
-
-
-            valueToReturn = temp.getValue();
-
+        if (contador == position) {
+            value = nodoActual.getValue();
         }
-
-        return valueToReturn;
+        return value;
     }
 
     public boolean contains(T value) {
-        boolean contains = false;
-        Nodo<T> temp = this.first;
-
-        while (temp != null && !temp.getValue().equals(value)) {
-
-            temp = temp.getNext();
-
+        boolean existencia = true;
+        Nodo nodoActual = primero;
+        while (!value.equals(nodoActual.getValue()) && nodoActual.getSiguiente() != null) {
+            nodoActual = nodoActual.getSiguiente();
         }
-
-        if (temp != null) {
-
-            contains = true;
-
+        if (!value.equals(nodoActual.getValue())) {
+            existencia = false;
         }
-
-        return contains;
+        return existencia;
     }
 
     public void remove(T value) {
         Nodo<T> beforeSearchValue = null;
-        Nodo<T> searchValue = this.first;
+        Nodo<T> searchValue = this.primero;
 
         while (searchValue != null && !searchValue.getValue().equals(value)) {
 
             beforeSearchValue = searchValue;
-            searchValue = searchValue.getNext();
+            searchValue = searchValue.getSiguiente();
 
         }
 
         if (searchValue != null) {
 
-            if (searchValue == this.first && searchValue != this.last) {
+            if (searchValue == this.primero && searchValue != this.ultimo) {
 
-                Nodo<T> temp = this.first;
-                this.first = this.first.getNext();
+                Nodo<T> temp = this.primero;
+                this.primero = this.primero.getSiguiente();
 
-                temp.setNext(null);
+                temp.setSiguiente(null);
 
-            } else if (searchValue == this.last && searchValue != this.first) {
+            } else if (searchValue == this.ultimo && searchValue != this.primero) {
 
-                beforeSearchValue.setNext(null);
-                this.last = beforeSearchValue;
+                beforeSearchValue.setSiguiente(null);
+                this.ultimo = beforeSearchValue;
 
-            } else if (searchValue == this.last && searchValue == this.first) {
+            } else if (searchValue == this.ultimo && searchValue == this.primero) {
 
-                this.first = null;
-                this.last = null;
+                this.primero = null;
+                this.ultimo = null;
 
             } else {
 
-                beforeSearchValue.setNext(searchValue.getNext());
-                searchValue.setNext(null);
+                beforeSearchValue.setSiguiente(searchValue.getSiguiente());
+                searchValue.setSiguiente(null);
 
             }
 
@@ -136,26 +101,16 @@ public class MyLinkedListimpl<T> implements MyList<T>{
 
     }
 
-    private T eliminarUltimo() {
-        T valueToRemove = null;
 
-        if (this.last != null) {
-            valueToRemove = this.last.getValue();
-
-            remove(valueToRemove);
-        }
-
-        return valueToRemove;
-    }
 
     public int size() {
         int size = 0;
 
-        Nodo<T> temp = this.first;
+        Nodo<T> temp = this.primero;
 
         while (temp != null) {
 
-            temp = temp.getNext();
+            temp = temp.getSiguiente();
             size++;
 
         }

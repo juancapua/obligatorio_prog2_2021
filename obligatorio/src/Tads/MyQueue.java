@@ -6,7 +6,5 @@ public interface MyQueue<T> {
 
     T dequeue() throws EmptyQueueException;
 
-    boolean contains(T value);
-
     int size();
 }
