@@ -72,9 +72,9 @@ public class MyLinkedListimpl<T> implements MyList<T>{
 
         }
 
-        if (searchValue != null) {
+        if (searchValue.getSiguiente() != null) {
             searchValue.setSiguiente(null);
-            if (searchValue == this.ultimo) {this.ultimo = searchValue;}
+            if (searchValue.getSiguiente() == this.ultimo) {this.ultimo = searchValue;}
             size--;
 
         }
