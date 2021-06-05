@@ -35,17 +35,11 @@ public class MyLinkedListimpl<T> implements MyList<T>{
 
     public T get(int position) {
         Nodo<T> nodoActual = primero;
-        T value = null;
-        int contador = 0;
 
-        while (contador < position) {
-            nodoActual = nodoActual.getSiguiente();
-            contador++;
+        for (int i = 0; i < position; i++) {
+            nodoActual= nodoActual.getSiguiente();
         }
-        if (contador == position) {
-            value = nodoActual.getValue();
-        }
-        return value;
+        return nodoActual.getValue();
     }
 
     public boolean contains(T value) {
