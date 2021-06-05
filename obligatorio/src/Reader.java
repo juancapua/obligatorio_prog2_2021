@@ -1,20 +1,23 @@
-import Entidades.CastMember;
+import Entidades.CastMenber;
 import Entidades.Movie;
 import Entidades.MovieCastMember;
 import Entidades.MovieRating;
+import Tads.CloseHashImpl;
 import Tads.KeyNotFoundException;
+import Tads.MyHash;
 import Tads.OpenHash;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Reader {
+public class Reader<K, V> {
 
-    public static OpenHash<String, CastMember> castMemberHash = new OpenHash<>(370000);
+    public static OpenHash<String, CastMenber> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
 
 
@@ -35,7 +38,7 @@ public class Reader {
 
             while ((linea = bufer1.readLine()) != null) {
                 String[] lecturaLinea = separarPeroBien(linea);
-                castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
+                castMemberHash.put(lecturaLinea[0], new CastMenber(lecturaLinea));
 
             }
         } catch(FileNotFoundException e){
