@@ -1,4 +1,4 @@
-import Entidades.CastMenber;
+import Entidades.CastMember;
 import Entidades.Movie;
 import Entidades.MovieCastMember;
 import Entidades.MovieRating;
@@ -15,9 +15,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Reader<K, V> {
+public class Reader{
 
-    public static OpenHash<String, CastMenber> castMemberHash = new OpenHash<>(370000);
+    public static OpenHash<String, CastMember> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
 
 
@@ -38,7 +38,7 @@ public class Reader<K, V> {
 
             while ((linea = bufer1.readLine()) != null) {
                 String[] lecturaLinea = separarPeroBien(linea);
-                castMemberHash.put(lecturaLinea[0], new CastMenber(lecturaLinea));
+                castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
 
             }
         } catch(FileNotFoundException e){
