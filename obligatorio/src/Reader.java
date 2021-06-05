@@ -70,7 +70,7 @@ public class Reader<K, V> {
                 String[] lecturaLinea3 = separarPeroBien(linea);
                 movieHash.get(lecturaLinea3[0]).setListaMovieCastMember(new MovieCastMember(lecturaLinea3));
                 int aux = Integer.parseInt(lecturaLinea3[1]);
-                movieHash.get(lecturaLinea3[0]).getListaMovieCastMember()
+                movieHash.get(lecturaLinea3[0]).getListaMovieCastMember().get(aux).setCastMemeber(castMemberHash.get(lecturaLinea3[2]));
 
             }
         } catch(FileNotFoundException e){
