@@ -11,13 +11,13 @@ public class MovieCastMember {
     private CastMember castMember;
     private String category;
     private String job;
-    private MyList<String> characters;
+    private String[] characters;
 
-    public MovieCastMember(int ordering, String category, String job, CastMember castMember) {
+    public MovieCastMember(int ordering, String category, String job,String[] characters, CastMember castMember) {
         this.ordering = ordering;
         this.category = category;
         this.job = job;
-        this.characters = new MyLinkedListimpl<>();
+        this.characters =characters;
         this.castMember = castMember;
     }
 
@@ -27,10 +27,7 @@ public class MovieCastMember {
         this.castMember = null;
         this.category = lectura[3];
         this.job = lectura[4];
-        this.characters = new MyLinkedListimpl<>();
-        this.characters.add();
-
-        //FIXME agregar los characters
+        this.characters = lectura[5].replace("\"", "").replace("[","").replace("]","").split(",");
 
 
     }
@@ -59,12 +56,12 @@ public class MovieCastMember {
         this.job = job;
     }
 
-    public MyList<String> getCharacters() {
+    public String[] getCharacters() {
         return characters;
     }
 
-    public void setCharacters(String character) {
-        this.characters.add(character);
+    public void setCharacters(String[] characters) {
+        this.characters=characters;
     }
 
     public CastMember getCastMemeber() {
