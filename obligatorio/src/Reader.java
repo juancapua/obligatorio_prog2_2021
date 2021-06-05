@@ -102,7 +102,7 @@ public class Reader{
 
     public String[] separarPeroBien (String entrada){
         final String regex = ",(\"([^\"]*)\"|[^,]*)";
-        final String text = entrada;
+        final String text = entrada.replace("\"\"","'");
 
         final Pattern pattern = Pattern.compile(regex);
         final Matcher matcher = pattern.matcher("," + text);
