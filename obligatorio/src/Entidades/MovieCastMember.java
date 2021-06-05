@@ -1,23 +1,38 @@
 package Entidades;
 
+import Tads.MyLinkedListimpl;
+import Tads.MyList;
+
 import java.util.ArrayList;
 
 public class MovieCastMember {
 
     private int ordering;
+    private CastMenber castMemeber;
     private String category;
     private String job;
-    private ArrayList<String> characters;
-    private CastMenber castMemeber;
-    private Movie movie;
+    private MyList<String> characters;
 
-    public MovieCastMember(int ordering, String category, String job, CastMenber castMemeber, Movie movie) {
+    public MovieCastMember(int ordering, String category, String job, CastMenber castMemeber) {
         this.ordering = ordering;
         this.category = category;
         this.job = job;
-        this.characters = new ArrayList<>();
+        this.characters = new MyLinkedListimpl<>();
         this.castMemeber = castMemeber;
-        this.movie = movie;
+    }
+
+    public MovieCastMember(String[] lectura){
+
+        this.ordering = Integer.parseInt(lectura[1]);
+        this.castMemeber = null;
+        this.category = lectura[3];
+        this.job = lectura[4];
+        this.characters = new MyLinkedListimpl<>();
+        this.characters.add();
+
+        //FIXME agregar los characters
+
+
     }
 
     public int getOrdering() {
@@ -66,6 +81,12 @@ public class MovieCastMember {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public String[] separarCharacters(String lectura){
+
+        // FIXME hacer la separacion
+
     }
 
 

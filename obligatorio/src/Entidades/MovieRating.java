@@ -1,5 +1,7 @@
 package Entidades;
 
+import Tads.MyList;
+
 import java.util.List;
 
 public class MovieRating {
@@ -8,14 +10,14 @@ public class MovieRating {
     private int totalVotes;
     private float meanVote;
     private float medianVote;
-    private List<String> votesRating;
+    private MyList<String> votesRating;
     private Rating ratingTop1000_us;
     private Rating ratingTop1000_NonUs;
     private Rating ratingAllGenders;
     private Rating ratingMales;
     private Rating ratingFemales;
 
-    public MovieRating(float weightedAverage, int totalVotes, float meanVote, float medianVote, List<String> votesRating, Rating ratingTop1000_us, Rating ratingTop1000_nonUs, Rating ratingAllGenders, Rating ratingMales, Rating ratingFemales) {
+    public MovieRating(float weightedAverage, int totalVotes, float meanVote, float medianVote, MyList<String> votesRating, Rating ratingTop1000_us, Rating ratingTop1000_nonUs, Rating ratingAllGenders, Rating ratingMales, Rating ratingFemales) {
         this.weightedAverage = weightedAverage;
         this.totalVotes = totalVotes;
         this.meanVote = meanVote;
@@ -26,6 +28,22 @@ public class MovieRating {
         this.ratingAllGenders = ratingAllGenders;
         this.ratingMales = ratingMales;
         this.ratingFemales = ratingFemales;
+    }
+
+    public MovieRating(String[] lectura){
+
+        this.weightedAverage = Float.parseFloat(lectura[1]);
+        this.totalVotes = Integer.parseInt(lectura[2]);
+        this.meanVote = Float.parseFloat(lectura[3]);
+        this.medianVote = Float.parseFloat(lectura[4]);
+
+
+        //FIXME faltan partes del contructor
+
+
+
+
+
     }
 
     public float getWeightedAverage() {

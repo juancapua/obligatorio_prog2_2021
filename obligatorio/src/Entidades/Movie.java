@@ -1,8 +1,10 @@
 package Entidades;
 
+import Tads.MyLinkedListimpl;
+import Tads.MyList;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class Movie {
 
@@ -29,8 +31,9 @@ public class Movie {
     private float reviewsFromUsers;
     private float reviewsFromCritics;
     private MovieRating movieRating;
+    private MyList<MovieCastMember> listaMovieCastMember;
 
-    public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, String[] genre, int duration, String[] country, String language, String[] director, String[] writer, String productionCompany, String[] actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics) {
+    public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, String[] genre, int duration, String[] country, String language, String[] director, String[] writer, String productionCompany, String[] actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics, MyList<MovieCastMember> listaMovieCastMember) {
         this.imdbTitleld = imdbTitleld;
         this.title = title;
         this.originalTitle = originalTitle;
@@ -53,6 +56,7 @@ public class Movie {
         this.metaScore = metaScore;
         this.reviewsFromUsers = reviewsFromUsers;
         this.reviewsFromCritics = reviewsFromCritics;
+        this.listaMovieCastMember = listaMovieCastMember;
         this.movieRating = null;
     }
 
@@ -63,7 +67,7 @@ public class Movie {
         this.year = Integer.parseInt(datos[3]);
         try {
             this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse(datos[4]);
-        }catch (Exception e){;}
+        }catch (Exception e){}
 
         this.genre = datos[5].replace("\"", "").split(",");
         this.duration = Integer.parseInt(datos[6]);
@@ -83,6 +87,7 @@ public class Movie {
         this.reviewsFromUsers = Float.parseFloat(datos[20]);
         this.reviewsFromCritics = Float.parseFloat(datos[21]);
         this.movieRating = null;
+        this.listaMovieCastMember = new MyLinkedListimpl<>();
     }
 
     public String getImdbTitleld() {
@@ -269,4 +274,11 @@ public class Movie {
         this.movieRating = movieRating;
     }
 
+    public MyList<MovieCastMember> getListaMovieCastMember() {
+        return listaMovieCastMember;
+    }
+
+    public void setListaMovieCastMember(MovieCastMember nuevo) {
+        this.listaMovieCastMember.add(nuevo);
+    }
 }

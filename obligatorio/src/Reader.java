@@ -1,7 +1,9 @@
 import Entidades.CastMenber;
 import Entidades.Movie;
 import Entidades.MovieCastMember;
+import Entidades.MovieRating;
 import Tads.CloseHashImpl;
+import Tads.KeyNotFoundException;
 import Tads.MyHash;
 import Tads.OpenHash;
 
@@ -17,7 +19,6 @@ public class Reader<K, V> {
 
     public static OpenHash<String, CastMenber> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
-    public static OpenHash<String, MovieCastMember> movieCastMemeberHash = new OpenHash<>(110000);
 
 
     public void cargaDatos() {
@@ -51,8 +52,8 @@ public class Reader<K, V> {
             BufferedReader bufer2 = new BufferedReader(new FileReader(path2));
 
             while ((linea = bufer2.readLine()) != null) {
-                String[] lecturaLinea = separarPeroBien(linea);
-                //aca iria la carga del path 2 a su hash
+                String[] lecturaLinea2 = separarPeroBien(linea);
+                movieHash.put(lecturaLinea2[0],new Movie(lecturaLinea2));
 
             }
         } catch(FileNotFoundException e){
@@ -66,13 +67,17 @@ public class Reader<K, V> {
             BufferedReader bufer3 = new BufferedReader(new FileReader(path3));
 
             while ((linea = bufer3.readLine()) != null) {
-                String[] lecturaLinea = separarPeroBien(linea);
-                //aca iria la carga del path 3 a su hash
+                String[] lecturaLinea3 = separarPeroBien(linea);
+                movieHash.get(lecturaLinea3[0]).setListaMovieCastMember(new MovieCastMember(lecturaLinea3));
+                int aux = Integer.parseInt(lecturaLinea3[1]);
+                movieHash.get(lecturaLinea3[0]).getListaMovieCastMember()
 
             }
         } catch(FileNotFoundException e){
             e.printStackTrace();
         } catch(IOException e){
+            e.printStackTrace();
+        } catch (KeyNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -81,8 +86,8 @@ public class Reader<K, V> {
             BufferedReader bufer4 = new BufferedReader(new FileReader(path4));
 
             while ((linea = bufer4.readLine()) != null) {
-                String[] lecturaLinea = separarPeroBien(linea);
-                //aca iria la carga del path 4 a su hash
+                String[] lecturaLinea4 = separarPeroBien(linea);
+                movieHash.get(lecturaLinea4[0]).setMovieRating(new MovieRating(lecturaLinea4));
 
             }
         } catch(FileNotFoundException e){
