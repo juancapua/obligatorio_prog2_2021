@@ -2,7 +2,6 @@ package Tads;
 
 import java.util.ArrayList;
 
-
 public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
     private int size;
@@ -35,9 +34,11 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
     @Override
     public V get(K key) throws KeyNotFoundException{
 
-        //Nodo<HashNode<K,V>>lista = hash[hashFun(key)].get(0);
-
-
+        Nodo<HashNode<K,V>> NodoActual = getNodoInicialSegunKey(key);
+        while(NodoActual!=null){
+            if(NodoActual.getValue().getKey().compareTo(key) == 0){return NodoActual.getValue().getValue();}
+            NodoActual=NodoActual.getSiguiente();
+        }
         throw new KeyNotFoundException();
 
 
@@ -50,33 +51,19 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
 
     public boolean contains(K key) {
-        if (hash[hashFun(key)] != null)
-            for (HashNode<K, V> node : hash[hashFun(key)])
-                if (node.getKey().compareTo(key) == 0) return true;
+        Nodo<HashNode<K,V>> NodoActual = getNodoInicialSegunKey(key);
+        while(NodoActual!=null){
+            if(NodoActual.getValue().getKey().compareTo(key) == 0){return true;}
+            NodoActual=NodoActual.getSiguiente();
+        }
         return false;
 
     }
 
     @Override
     public void remove(K key) {
-
-        int pos = hashFun(key);
-
-        int counter = 0;
-
-        for (HashNode<K, V> node : hash[pos]) {
-
-            if (node.getKey().compareTo(key) == 0) {
-
-                hash[pos].remove(counter);
-
-                break;
-
-            }
-
-            counter += 1;
-
-        }
+        HashNode<K,V> NodoARemover = new HashNode<>(key,null);
+        hash[hashFun(key)].remove(NodoARemover);
     }
 
     public int hashFun(K key) {
@@ -94,6 +81,10 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
     public MyList<HashNode<K, V>> getTodos(K key) {
         return this.hash[hashFun(key)];
+    }
+
+    private Nodo<HashNode<K,V>> getNodoInicialSegunKey(K key) {
+        return ((MyLinkedListimpl<HashNode<K,V>>)hash[hashFun(key)]).getPrimero();
     }
     
     
