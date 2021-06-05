@@ -6,9 +6,12 @@ public class MyLinkedListimpl<T> implements MyList<T>{
 
     private Nodo<T> ultimo;
 
+    private int size;
+
     public MyLinkedListimpl() {
         this.primero = null;
         this.ultimo = null;
+        this.size = 0;
     }
 
 
@@ -17,19 +20,20 @@ public class MyLinkedListimpl<T> implements MyList<T>{
 
         if (primero == null) {
             primero = nuevoNodo;
+            ultimo=primero;
         } else {
-            Nodo<T> nodoActual = primero;
-            while (nodoActual.getSiguiente() != null) {
-                nodoActual = nodoActual.getSiguiente();
-            }
-            nodoActual.setSiguiente(nuevoNodo);
+            ultimo.setSiguiente(nuevoNodo);
+            ultimo=nuevoNodo;
+
         }
+        size++;
     }
 
     private void addToBeginning(T value) {
         Nodo<T> nuevoPrimerNodo = new Nodo<>(value);
         nuevoPrimerNodo.setSiguiente(primero);
         primero = nuevoPrimerNodo;
+        size++;
     }
 
 
@@ -90,6 +94,7 @@ public class MyLinkedListimpl<T> implements MyList<T>{
                 searchValue.setSiguiente(null);
 
             }
+            size--;
 
         }
 
@@ -98,17 +103,6 @@ public class MyLinkedListimpl<T> implements MyList<T>{
 
 
     public int size() {
-        int size = 0;
-
-        Nodo<T> temp = this.primero;
-
-        while (temp != null) {
-
-            temp = temp.getSiguiente();
-            size++;
-
-        }
-
         return size;
     }
 
