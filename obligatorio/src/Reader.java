@@ -27,8 +27,9 @@ public class Reader{
 
         System.out.println("Cargando datos...");
 
-        String path1 = "Data/IMDb names.csv";
-        String path2 = "DaData/IMDb title_principals.csv";
+        String path1 = "C:\\Users\\juan\\Desktop\\Facultad\\programacion 2\\obligatorio\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
+        String path2 = "Data/IMDb movies.csv";
+        String path3 = "DaData/IMDb title_principals.csv";
         String path4 = "Data/IMDb ratings.csv";
 
         String linea = null;
@@ -37,6 +38,7 @@ public class Reader{
 
             BufferedReader bufer1 = new BufferedReader(new FileReader(path1));
             String key = null;
+            int i = 0;
 
             while ((linea = bufer1.readLine()) != null) {
                 String[] lecturaLinea = separarPeroBien(linea);
@@ -45,33 +47,30 @@ public class Reader{
                     castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
                     key = lecturaLinea[0];
 
-                }else if (lecturaLinea[1] == null) {
+                }else {
 
-                    
-
-                }else{
-
-
+                    castMemberHash.get(key).continueCastMember(lecturaLinea);
 
                 }
-
-
-
 
             }
         } catch(FileNotFoundException e){
             e.printStackTrace();
         } catch(IOException e){
             e.printStackTrace();
+        } catch (KeyNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
 
             BufferedReader bufer2 = new BufferedReader(new FileReader(path2));
+            System.out.println("entre2");
 
             while ((linea = bufer2.readLine()) != null) {
                 String[] lecturaLinea2 = separarPeroBien(linea);
                 movieHash.put(lecturaLinea2[0],new Movie(lecturaLinea2));
+
 
             }
         } catch(FileNotFoundException e){

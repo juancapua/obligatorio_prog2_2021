@@ -20,11 +20,10 @@ public class Principal {
                 switch (aux){
 
                     case 1:
-                        if(entre = true){
+                        if(entre){
                             System.out.println("ERROR, ya se han cargado los datos");
                         }
                         entre = true;
-
 
                         Reader reader = new Reader();
                         reader.cargaDatos();

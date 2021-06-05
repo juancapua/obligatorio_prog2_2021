@@ -118,4 +118,7 @@ public class MyLinkedListimpl<T> implements MyList<T>{
         return size;
     }
 
+    public Nodo<T> getPrimero() {
+        return primero;
+    }
 }

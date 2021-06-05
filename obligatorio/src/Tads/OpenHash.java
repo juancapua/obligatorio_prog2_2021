@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
     private int size;
-    private ArrayList<HashNode<K, V>>[] hash;
+    private MyList<HashNode<K, V>>[] hash;
 
     public OpenHash(int size) {
         this.size = size;
-        hash = new ArrayList[size];
+        this.hash = new MyList[size];
     }
 
     @Override
@@ -20,7 +20,7 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
         if (hash[pos] == null) {
 
-            hash[pos] = new ArrayList<>(10);
+            hash[pos] = new MyLinkedListimpl<>();
 
             hash[pos].add(new HashNode<>(key, data));
 
@@ -33,12 +33,14 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
 
     @Override
-    public V get(K key) throws KeyNotFoundException {
+    public V get(K key) throws KeyNotFoundException{
 
-        for (HashNode<K, V> node : hash[hashFun(key)])
-            if (node.getKey().compareTo(key) == 0) return node.getValue();
+        //Nodo<HashNode<K,V>>lista = hash[hashFun(key)].get(0);
+
 
         throw new KeyNotFoundException();
+
+
     }
 
     @Override
@@ -78,16 +80,11 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
     }
 
     public int hashFun(K key) {
-        int hashCode = 0;
 
-        for (int i = 0; i < key.toString().length(); i++) {
-            hashCode += key.toString().charAt(i);
-        }
-
-        return hashCode;
+        return key.hashCode() % size;
     }
 
-    public ArrayList<HashNode<K, V>>[] getHash() {
+    public MyList<HashNode<K, V>>[] getHash() {
         return this.hash;
     }
 
@@ -95,7 +92,7 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
         return size;
     }
 
-    public ArrayList<HashNode<K, V>> getTodos(K key) {
+    public MyList<HashNode<K, V>> getTodos(K key) {
         return this.hash[hashFun(key)];
     }
     
