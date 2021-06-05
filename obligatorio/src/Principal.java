@@ -26,7 +26,8 @@ public class Principal {
                         entre = true;
 
 
-                        //FIXME hacer carga de datos
+                        Reader reader = new Reader();
+                        reader.cargaDatos();
 
 
                     case 2:

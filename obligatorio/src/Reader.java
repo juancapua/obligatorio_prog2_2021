@@ -1,3 +1,5 @@
+
+
 import Entidades.CastMember;
 import Entidades.Movie;
 import Entidades.MovieCastMember;
@@ -25,7 +27,7 @@ public class Reader{
 
         System.out.println("Cargando datos...");
 
-        String path1 = "Data/names.csv";
+        String path1 = "C:\\Users\\juan\\Desktop\\Facultad\\programacion 2\\obligatorio\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
         String path2 = "Data/movies.csv";
         String path3 = "Data/title_principals";
         String path4 = "Data/ratings";
@@ -35,10 +37,27 @@ public class Reader{
         try {
 
             BufferedReader bufer1 = new BufferedReader(new FileReader(path1));
+            String key = null;
 
             while ((linea = bufer1.readLine()) != null) {
                 String[] lecturaLinea = separarPeroBien(linea);
-                castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
+                if(lecturaLinea[5] != null){
+
+                    castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
+                    key = lecturaLinea[0];
+
+                }else if (lecturaLinea[1] == null) {
+
+                    
+
+                }else{
+
+
+
+                }
+
+
+
 
             }
         } catch(FileNotFoundException e){

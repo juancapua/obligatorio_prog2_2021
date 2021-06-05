@@ -27,14 +27,11 @@ public class MovieCastMember {
         this.castMember = null;
         this.category = lectura[3];
         this.job = lectura[4];
-<<<<<<< Updated upstream
         this.characters = lectura[5].replace("\"", "").replace("[","").replace("]","").split(",");
-=======
-        this.characters = new MyLinkedListimpl<>();
+        this.characters = new String[0];
         //this.characters.add();
 
         //FIXME agregar los characters
->>>>>>> Stashed changes
 
 
     }
