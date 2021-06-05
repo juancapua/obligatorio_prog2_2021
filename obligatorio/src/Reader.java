@@ -27,10 +27,9 @@ public class Reader{
 
         System.out.println("Cargando datos...");
 
-        String path1 = "C:\\Users\\juan\\Desktop\\Facultad\\programacion 2\\obligatorio\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
-        String path2 = "Data/movies.csv";
-        String path3 = "Data/title_principals";
-        String path4 = "Data/ratings";
+        String path1 = "Data/IMDb names.csv";
+        String path2 = "DaData/IMDb title_principals.csv";
+        String path4 = "Data/IMDb ratings.csv";
 
         String linea = null;
 
