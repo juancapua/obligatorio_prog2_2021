@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Reader<K, V> {
+public class Reader<K, V>{
 
     public static OpenHash<String, CastMenber> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
