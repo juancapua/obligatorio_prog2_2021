@@ -94,6 +94,8 @@ public class Reader{
             e.printStackTrace();
         } catch(IOException e){
             e.printStackTrace();
+        } catch (KeyNotFoundException e) {
+            e.printStackTrace();
         }
 
         System.out.println("Datos cargados");

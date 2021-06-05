@@ -78,11 +78,11 @@ public class MovieRating {
         this.medianVote = medianVote;
     }
 
-    public List<String> getVotesRating() {
+    public MyList<String> getVotesRating() {
         return votesRating;
     }
 
-    public void setVotesRating(List<String> votesRating) {
+    public void setVotesRating(MyList<String> votesRating) {
         this.votesRating = votesRating;
     }
 

@@ -27,7 +27,14 @@ public class MovieCastMember {
         this.castMember = null;
         this.category = lectura[3];
         this.job = lectura[4];
+<<<<<<< Updated upstream
         this.characters = lectura[5].replace("\"", "").replace("[","").replace("]","").split(",");
+=======
+        this.characters = new MyLinkedListimpl<>();
+        //this.characters.add();
+
+        //FIXME agregar los characters
+>>>>>>> Stashed changes
 
 
     }
@@ -77,6 +84,8 @@ public class MovieCastMember {
     public String[] separarCharacters(String lectura){
 
         // FIXME hacer la separacion
+
+        return null;
 
     }
 
