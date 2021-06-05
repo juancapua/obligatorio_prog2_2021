@@ -1,8 +1,3 @@
-import Entidades.CastMenber;
-import Tads.CloseHashImpl;
-import Tads.MyHash;
-import Tads.MyLinkedListimpl;
-
 import java.util.Scanner;
 
 public class Principal {

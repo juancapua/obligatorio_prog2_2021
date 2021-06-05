@@ -8,23 +8,23 @@ import java.util.ArrayList;
 public class MovieCastMember {
 
     private int ordering;
-    private CastMenber castMemeber;
+    private CastMember castMember;
     private String category;
     private String job;
     private MyList<String> characters;
 
-    public MovieCastMember(int ordering, String category, String job, CastMenber castMemeber) {
+    public MovieCastMember(int ordering, String category, String job, CastMember castMember) {
         this.ordering = ordering;
         this.category = category;
         this.job = job;
         this.characters = new MyLinkedListimpl<>();
-        this.castMemeber = castMemeber;
+        this.castMember = castMember;
     }
 
     public MovieCastMember(String[] lectura){
 
         this.ordering = Integer.parseInt(lectura[1]);
-        this.castMemeber = null;
+        this.castMember = null;
         this.category = lectura[3];
         this.job = lectura[4];
         this.characters = new MyLinkedListimpl<>();
@@ -59,7 +59,7 @@ public class MovieCastMember {
         this.job = job;
     }
 
-    public ArrayList<String> getCharacters() {
+    public MyList<String> getCharacters() {
         return characters;
     }
 
@@ -67,21 +67,15 @@ public class MovieCastMember {
         this.characters.add(character);
     }
 
-    public CastMenber getCastMemeber() {
-        return castMemeber;
+    public CastMember getCastMemeber() {
+        return castMember;
     }
 
-    public Movie getMovie() {
-        return movie;
+
+    public void setCastMemeber(CastMember castMemeber) {
+        this.castMember = castMemeber;
     }
 
-    public void setCastMemeber(CastMenber castMemeber) {
-        this.castMemeber = castMemeber;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
 
     public String[] separarCharacters(String lectura){
 

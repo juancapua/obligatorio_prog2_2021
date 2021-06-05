@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class CastMenber {
+public class CastMember {
 
     private String imdbNameid;
     private String name;
@@ -32,7 +32,7 @@ public class CastMenber {
     private int children;
     private MyList<CauseOfDeath> causeOfDeaths;
 
-    public CastMenber(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spousesString, int spouses, int divorces, int spousesWithChildren, int children) {
+    public CastMember(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spousesString, int spouses, int divorces, int spousesWithChildren, int children) {
         this.imdbNameid = imdbNameid;
         this.name = name;
         this.birthName = birthName;
@@ -56,7 +56,7 @@ public class CastMenber {
 
     }
 
-    public CastMenber(String[] lectura) {
+    public CastMember(String[] lectura) {
         this.imdbNameid = lectura[0];
         this.name = lectura[1];
         this.birthName = lectura[2];
