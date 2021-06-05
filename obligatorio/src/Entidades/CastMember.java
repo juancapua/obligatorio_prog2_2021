@@ -25,14 +25,14 @@ public class CastMember {
     private String deathState;
     private String deathCountry;
     private String deathCity;
-    private String spousesString;
+    private MyList<String> spousesList;
     private int spouses;
     private int divorces;
     private int spousesWithChildren;
     private int children;
     private MyList<CauseOfDeath> causeOfDeaths;
 
-    public CastMember(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spousesString, int spouses, int divorces, int spousesWithChildren, int children) {
+    public CastMember(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spouse, int spouses, int divorces, int spousesWithChildren, int children) {
         this.imdbNameid = imdbNameid;
         this.name = name;
         this.birthName = birthName;
@@ -46,7 +46,8 @@ public class CastMember {
         this.deathState = deathState;
         this.deathCountry = deathCountry;
         this.deathCity = deathCity;
-        this.spousesString = spousesString;
+        this.spousesList = new MyLinkedListimpl<String>();
+        this.spousesList.add(spouse);
         this.spouses = spouses;
         this.divorces = divorces;
         this.spousesWithChildren = spousesWithChildren;
@@ -65,24 +66,38 @@ public class CastMember {
         try {
             this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[6]);
         }catch (Exception e){}
-        this.birthState = separarLugar(lectura[7])[1];
-        this.birthCountry = separarLugar(lectura[7])[2];
-        this.birthCity = separarLugar(lectura[7])[0];
+        String[] lugar=separarLugar(lectura[7]);
+        this.birthState = lugar[1];
+        this.birthCountry = lugar[2];
+        this.birthCity = lugar[0];
         try {
             this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
         }catch (Exception e){}
         this.deathState = separarLugar(lectura[10])[1];
         this.deathCountry = separarLugar(lectura[10])[2];
         this.deathCity = separarLugar(lectura[10])[0];
-        this.spousesString = lectura[12];
-        this.spouses = Integer.parseInt(lectura[13]);
-        this.divorces = Integer.parseInt(lectura[14]);
-        this.spousesWithChildren = Integer.parseInt(lectura[15]);
-        this.children = Integer.parseInt(lectura[16]);
+        this.spousesList = new MyLinkedListimpl<String>();
+        this.spousesList.add(lectura[12]);
+        if (lectura[13] != null){
+            this.spouses = Integer.parseInt(lectura[13]);
+            this.divorces = Integer.parseInt(lectura[14]);
+            this.spousesWithChildren = Integer.parseInt(lectura[15]);
+            this.children = Integer.parseInt(lectura[16]);
+        }
         this.causeOfDeaths = new MyLinkedListimpl<CauseOfDeath>();
         this.causeOfDeaths.add(new CauseOfDeath(lectura[11]));
 
 
+    }
+
+    public void continueCastMember(String[] lectura){
+        this.spousesList.add(lectura[0]);
+        if (lectura[1] != null){
+            this.spouses = Integer.parseInt(lectura[1]);
+            this.divorces = Integer.parseInt(lectura[2]);
+            this.spousesWithChildren = Integer.parseInt(lectura[3]);
+            this.children = Integer.parseInt(lectura[4]);
+        }
     }
 
     public String getImdbNameid() {
@@ -189,12 +204,12 @@ public class CastMember {
         this.deathCity = deathCity;
     }
 
-    public String getSpousesString() {
-        return spousesString;
+    public MyList getSpousesList() {
+        return spousesList;
     }
 
-    public void setSpousesString(String spousesString) {
-        this.spousesString = spousesString;
+    public void setSpousesString(String spouse) {
+        this.spousesList.add(spouse);
     }
 
     public int getSpouses() {
