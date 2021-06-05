@@ -59,41 +59,22 @@ public class MyLinkedListimpl<T> implements MyList<T>{
     }
 
     public void remove(T value) {
-        Nodo<T> beforeSearchValue = null;
+        if (this.primero.getValue().equals(value)){
+            if(this.ultimo==this.primero){this.ultimo=null;}
+            this.primero = this.primero.getSiguiente();
+            size--;
+        }
+
         Nodo<T> searchValue = this.primero;
 
-        while (searchValue != null && !searchValue.getValue().equals(value)) {
-
-            beforeSearchValue = searchValue;
-            searchValue = searchValue.getSiguiente();
+        while (searchValue != null && !searchValue.getSiguiente().getValue().equals(value)) {
+             searchValue = searchValue.getSiguiente();
 
         }
 
         if (searchValue != null) {
-
-            if (searchValue == this.primero && searchValue != this.ultimo) {
-
-                Nodo<T> temp = this.primero;
-                this.primero = this.primero.getSiguiente();
-
-                temp.setSiguiente(null);
-
-            } else if (searchValue == this.ultimo && searchValue != this.primero) {
-
-                beforeSearchValue.setSiguiente(null);
-                this.ultimo = beforeSearchValue;
-
-            } else if (searchValue == this.ultimo && searchValue == this.primero) {
-
-                this.primero = null;
-                this.ultimo = null;
-
-            } else {
-
-                beforeSearchValue.setSiguiente(searchValue.getSiguiente());
-                searchValue.setSiguiente(null);
-
-            }
+            searchValue.setSiguiente(null);
+            if (searchValue == this.ultimo) {this.ultimo = searchValue;}
             size--;
 
         }
