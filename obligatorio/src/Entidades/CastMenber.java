@@ -1,5 +1,10 @@
 package Entidades;
 
+import Tads.MyLinkedListimpl;
+import Tads.MyList;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +17,7 @@ public class CastMenber {
     private String birthName;
     private int height;
     private String bio;
-    private Date birthDate;
+    private  Date birthDate;
     private String birthState;
     private String birthCountry;
     private String birthCity;
@@ -25,7 +30,7 @@ public class CastMenber {
     private int divorces;
     private int spousesWithChildren;
     private int children;
-    private ArrayList<CauseOfDeath> causeOfDeaths;
+    private MyList<CauseOfDeath> causeOfDeaths;
 
     public CastMenber(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spousesString, int spouses, int divorces, int spousesWithChildren, int children) {
         this.imdbNameid = imdbNameid;
@@ -46,7 +51,36 @@ public class CastMenber {
         this.divorces = divorces;
         this.spousesWithChildren = spousesWithChildren;
         this.children = children;
-        this.causeOfDeaths = new ArrayList<CauseOfDeath>();
+        this.causeOfDeaths = new MyLinkedListimpl<>();
+
+
+    }
+
+    public CastMenber(String[] lectura) {
+        this.imdbNameid = lectura[0];
+        this.name = lectura[1];
+        this.birthName = lectura[2];
+        this.height = Integer.parseInt(lectura[3]);
+        this.bio = lectura[4];
+        try {
+            this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[6]);
+        }catch (Exception e){}
+        this.birthState = separarLugar(lectura[7])[1];
+        this.birthCountry = separarLugar(lectura[7])[2];
+        this.birthCity = separarLugar(lectura[7])[0];
+        try {
+            this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
+        }catch (Exception e){}
+        this.deathState = separarLugar(lectura[10])[1];
+        this.deathCountry = separarLugar(lectura[10])[2];
+        this.deathCity = separarLugar(lectura[10])[0];
+        this.spousesString = lectura[12];
+        this.spouses = Integer.parseInt(lectura[13]);
+        this.divorces = Integer.parseInt(lectura[14]);
+        this.spousesWithChildren = Integer.parseInt(lectura[15]);
+        this.children = Integer.parseInt(lectura[16]);
+        this.causeOfDeaths = new MyLinkedListimpl<CauseOfDeath>();
+        this.causeOfDeaths.add(new CauseOfDeath(lectura[11]));
 
 
     }
@@ -195,12 +229,21 @@ public class CastMenber {
         this.children = children;
     }
 
-    public ArrayList<CauseOfDeath> getCauseOfDeaths() {
+    public MyList<CauseOfDeath> getCauseOfDeaths() {
         return causeOfDeaths;
     }
 
     public void addCauseOfDeaths(CauseOfDeath causa) {
         this.causeOfDeaths.add(causa);
+    }
+
+    public String[] separarLugar(String lugar){
+
+
+        String[] aux = lugar.split(",");
+        return aux;
+
+
     }
 
 }

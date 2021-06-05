@@ -15,12 +15,6 @@ import java.util.regex.Pattern;
 
 public class Reader<K, V> {
 
-    public static String path1;
-    public static String path2;
-    public static String path3;
-    public static String path4;
-
-
     public static OpenHash<String, CastMenber> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
     public static OpenHash<String, MovieCastMember> movieCastMemeberHash = new OpenHash<>(110000);
@@ -30,6 +24,11 @@ public class Reader<K, V> {
 
         System.out.println("Cargando datos...");
 
+        String path1 = "Data/names.csv";
+        String path2 = "Data/movies.csv";
+        String path3 = "Data/title_principals";
+        String path4 = "Data/ratings";
+
         String linea = null;
 
         try {
@@ -38,7 +37,7 @@ public class Reader<K, V> {
 
             while ((linea = bufer1.readLine()) != null) {
                 String[] lecturaLinea = separarPeroBien(linea);
-                //aca iria la carga del path 1 a su hash
+                castMemberHash.put(lecturaLinea[0], new CastMenber(lecturaLinea));
 
             }
         } catch(FileNotFoundException e){
