@@ -58,26 +58,51 @@ public class CastMember {
     }
 
     public CastMember(String[] lectura) {
+
+        System.out.println("entro constructor");
         this.imdbNameid = lectura[0];
         this.name = lectura[1];
         this.birthName = lectura[2];
-        this.height = Integer.parseInt(lectura[3]);
+        if(lectura[3].length() != 0) {
+            this.height = Integer.parseInt(lectura[3]);
+        }else{this.height = 0;}
         this.bio = lectura[4];
         try {
             this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[6]);
         }catch (Exception e){}
-        String[] lugar=separarLugar(lectura[7]);
-        this.birthState = lugar[1];
-        this.birthCountry = lugar[2];
-        this.birthCity = lugar[0];
-        try {
-            this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
-        }catch (Exception e){}
-        this.deathState = separarLugar(lectura[10])[1];
-        this.deathCountry = separarLugar(lectura[10])[2];
-        this.deathCity = separarLugar(lectura[10])[0];
+        String[] lugar = separarLugar(lectura[7]);
+        for(String x: lugar){
+            System.out.println(x);
+        }
+        if(lugar[2] == "aa") {
+            this.birthCity = lugar[0];
+            this.birthCountry = lugar[1];
+            this.birthState = null;
+        }else {
+            this.birthState = lugar[1];
+            this.birthCountry = lugar[2];
+            this.birthCity = lugar[0];
+        }
+;
+        if(lectura[9].length() != 0) {
+            try {
+                this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
+            } catch (Exception e) {}
+            this.deathState = separarLugar(lectura[10])[1];
+            this.deathCountry = separarLugar(lectura[10])[2];
+            this.deathCity = separarLugar(lectura[10])[0];
+        }else{
+            this.deathDate = null;
+            this.deathState = null;
+            this.deathCountry = null;
+            this.deathCity = null;
+        }
         this.spousesList = new MyLinkedListimpl<String>();
-        this.spousesList.add(lectura[12]);
+        System.out.println("llegue aca");
+
+        if(lectura[12].length() != 0) {
+            this.spousesList.add(lectura[12]);
+        }
         if (lectura[13] != null){
             this.spouses = Integer.parseInt(lectura[13]);
             this.divorces = Integer.parseInt(lectura[14]);
@@ -86,6 +111,7 @@ public class CastMember {
         }
         this.causeOfDeaths = new MyLinkedListimpl<CauseOfDeath>();
         this.causeOfDeaths.add(new CauseOfDeath(lectura[11]));
+        System.out.println("termino constructor");
 
 
     }
@@ -254,10 +280,10 @@ public class CastMember {
 
     public String[] separarLugar(String lugar){
 
+        String lugar2 = lugar + ",aa,";
+        String[] aux = lugar2.split(",");
 
-        String[] aux = lugar.split(",");
         return aux;
-
 
     }
 

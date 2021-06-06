@@ -38,22 +38,24 @@ public class Reader{
 
             BufferedReader bufer1 = new BufferedReader(new FileReader(path1));
             String key = null;
-            int i = 0;
+            bufer1.readLine();
 
             while ((linea = bufer1.readLine()) != null) {
                 String[] lecturaLinea = separarPeroBien(linea);
-                if(lecturaLinea[5] != null){
+                if (lecturaLinea[5] != null) {
 
                     castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
+                    System.out.println(lecturaLinea[0]);
                     key = lecturaLinea[0];
 
-                }else {
+                } else {
 
                     castMemberHash.get(key).continueCastMember(lecturaLinea);
 
                 }
 
             }
+            System.out.println("llegue");
         } catch(FileNotFoundException e){
             e.printStackTrace();
         } catch(IOException e){
@@ -65,7 +67,7 @@ public class Reader{
         try {
 
             BufferedReader bufer2 = new BufferedReader(new FileReader(path2));
-            System.out.println("entre2");
+            bufer2.readLine();
 
             while ((linea = bufer2.readLine()) != null) {
                 String[] lecturaLinea2 = separarPeroBien(linea);
@@ -82,6 +84,7 @@ public class Reader{
         try {
 
             BufferedReader bufer3 = new BufferedReader(new FileReader(path3));
+            bufer3.readLine();
 
             while ((linea = bufer3.readLine()) != null) {
                 String[] lecturaLinea3 = separarPeroBien(linea);
@@ -101,6 +104,7 @@ public class Reader{
         try {
 
             BufferedReader bufer4 = new BufferedReader(new FileReader(path4));
+            bufer4.readLine();
 
             while ((linea = bufer4.readLine()) != null) {
                 String[] lecturaLinea4 = separarPeroBien(linea);
