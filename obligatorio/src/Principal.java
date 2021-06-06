@@ -6,6 +6,7 @@ public class Principal {
     public static void main(String[] args){
 
         boolean auxiliar = true;
+        boolean entre = false;
         while(auxiliar){
 
             Scanner sc = new Scanner(System.in);
@@ -15,7 +16,6 @@ public class Principal {
 
             try {
                int aux = Integer.parseInt(sc.nextLine());
-                boolean entre = false;
 
                 switch (aux){
 
@@ -31,7 +31,7 @@ public class Principal {
 
                     case 2:
                         if(entre = false){
-                            System.out.println("ERROR, no se han carhado los datos aun");
+                            System.out.println("ERROR, no se han cargado los datos aun");
                             break;
                         }
 

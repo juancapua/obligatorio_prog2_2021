@@ -70,52 +70,28 @@ public class CastMember {
         try {
             this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[6]);
         }catch (Exception e){}
-        String[] lugar = separarLugar(lectura[7]);
-        System.out.println(lugar.length);
-        if(lugar.length == 1) {
-            this.birthCity = null;
-            this.birthCountry = lugar[0];
-            this.birthState = null;
-        }if(lugar.length == 2){
-            this.birthCity = lugar[0];
-            this.birthCountry = lugar[1];
-            this.birthState = null;
-        }if(lugar.length == 3){
-            this.birthState = lugar[1];
-            this.birthCountry = lugar[2];
-            this.birthCity = lugar[0];
-        }
-
-        if(lectura[9].length() != 0) {
-            try {
-                this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
-            } catch (Exception e) {}
-            if(separarLugar(lectura[10]).length == 3) {
-                this.deathState = separarLugar(lectura[10])[1];
-                this.deathCountry = separarLugar(lectura[10])[2];
-                this.deathCity = separarLugar(lectura[10])[0];
-            }else{
-                this.deathCountry = lectura[10];
-            }
-        }else{
-            this.deathDate = null;
-            this.deathState = null;
-            this.deathCountry = null;
-            this.deathCity = null;
-        }
+        separarLugar(lectura[7],this.birthCity,this.birthState,this.birthCountry);
+        separarLugar(lectura[9],this.deathCity,this.deathState,this.deathCountry);
+        try {
+            this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
+        } catch (Exception e) {}
+        Integer shift = 0;
+        System.out.println(shift);
         this.spousesList = new MyLinkedListimpl<String>();
-        if(lectura[12] != null && lectura[13] != null && lectura[14] == null){
+        if((lectura[12] != null && lectura[13] != null && lectura[14] == null)||lectura[17]!=null){
             lectura[12] = lectura[12] + lectura[13];
-            lectura[13] = null;
+            shift=1;
         }
+        System.out.println(shift);
         if(lectura[12].length() != 0) {
             this.spousesList.add(lectura[12]);
         }
-        if (lectura[13] != null){
-            this.spouses = Integer.parseInt(lectura[13]);
-            this.divorces = Integer.parseInt(lectura[14]);
-            this.spousesWithChildren = Integer.parseInt(lectura[15]);
-            this.children = Integer.parseInt(lectura[16]);
+        System.out.println(shift);
+        if (lectura[13+shift] != null){
+            this.spouses = Integer.parseInt(lectura[13+shift]);
+            this.divorces = Integer.parseInt(lectura[14+shift]);
+            this.spousesWithChildren = Integer.parseInt(lectura[15+shift]);
+            this.children = Integer.parseInt(lectura[16+shift]);
         }
         this.causeOfDeaths = new MyLinkedListimpl<CauseOfDeath>();
         if(lectura[11].length() != 0){
@@ -127,12 +103,17 @@ public class CastMember {
     }
 
     public void continueCastMember(String[] lectura){
+        Integer shift = 0;
+        if((lectura[0] != null && lectura[1] != null && lectura[2] == null)||lectura[5]!=null){
+            lectura[0] = lectura[1] + lectura[2];
+            shift= 1;
+        }
         this.spousesList.add(lectura[0]);
-        if (lectura[1] != null){
-            this.spouses = Integer.parseInt(lectura[1]);
-            this.divorces = Integer.parseInt(lectura[2]);
-            this.spousesWithChildren = Integer.parseInt(lectura[3]);
-            this.children = Integer.parseInt(lectura[4]);
+        if (lectura[1+shift] != null){
+            this.spouses = Integer.parseInt(lectura[1+shift]);
+            this.divorces = Integer.parseInt(lectura[2+shift]);
+            this.spousesWithChildren = Integer.parseInt(lectura[3+shift]);
+            this.children = Integer.parseInt(lectura[4+shift]);
         }
     }
 
@@ -288,12 +269,22 @@ public class CastMember {
         this.causeOfDeaths.add(causa);
     }
 
-    public String[] separarLugar(String lugar){
-
+    public void separarLugar(String lugar, String ciudad, String region, String pais){
+        if (lugar.length()==0){
+            ciudad = null;
+            region = null;
+            pais = null;
+            return;
+        }
         String[] aux = lugar.split(",");
-
-        return aux;
-
+        pais = aux[aux.length-1];
+        if (aux.length>2) {
+            region = aux[aux.length - 2];
+        } else{region=null;}
+        if (aux.length>1){
+            ciudad=aux[0];
+            if (aux.length>=4){ciudad = ciudad + "," + aux[1];}
+        }else{ciudad=null;}
     }
 
 }

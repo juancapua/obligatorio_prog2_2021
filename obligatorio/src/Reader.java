@@ -4,10 +4,7 @@ import Entidades.CastMember;
 import Entidades.Movie;
 import Entidades.MovieCastMember;
 import Entidades.MovieRating;
-import Tads.CloseHashImpl;
-import Tads.KeyNotFoundException;
-import Tads.MyHash;
-import Tads.OpenHash;
+import Tads.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -27,7 +24,7 @@ public class Reader{
 
         System.out.println("Cargando datos...");
 
-        String path1 = "C:\\Users\\juan\\Desktop\\Facultad\\programacion 2\\obligatorio\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
+        String path1 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
         String path2 = "Data/IMDb movies.csv";
         String path3 = "DaData/IMDb title_principals.csv";
         String path4 = "Data/IMDb ratings.csv";
@@ -42,8 +39,7 @@ public class Reader{
 
             while ((linea = bufer1.readLine()) != null) {
                 String[] lecturaLinea = separarPeroBien(linea);
-                if (lecturaLinea[5] != null) {
-
+                if (lecturaLinea[6] != null) {
                     castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
                     System.out.println(lecturaLinea[0]);
                     key = lecturaLinea[0];
@@ -125,13 +121,15 @@ public class Reader{
 
     public String[] separarPeroBien (String entrada){
         final String regex = ",(\"([^\"]*)\"|[^,]*)";
-        final String text = entrada.replace("\"\"","'");
+        System.out.println(entrada);
+        final String text = entrada.replace("\"\"","'").replace(",'\"",",\"'");
+        System.out.println(text);
 
         final Pattern pattern = Pattern.compile(regex);
         final Matcher matcher = pattern.matcher("," + text);
 
         String elemento;
-        String[] separado = new String[17];
+        String[] separado = new String[50];
         int n = -1;
 
         while (matcher.find()) {

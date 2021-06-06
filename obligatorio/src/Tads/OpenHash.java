@@ -2,6 +2,8 @@ package Tads;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
     private int size;
@@ -68,7 +70,7 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
     public int hashFun(K key) {
 
-        return key.hashCode() % size;
+        return abs(key.hashCode() % size);
     }
 
     public MyList<HashNode<K, V>>[] getHash() {
