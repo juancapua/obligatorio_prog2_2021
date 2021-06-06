@@ -33,11 +33,11 @@ public class Reader{
         String path4 = "Data/IMDb ratings.csv";
 
         String linea = null;
+        String key = null;
 
         try {
 
             BufferedReader bufer1 = new BufferedReader(new FileReader(path1));
-            String key = null;
             bufer1.readLine();
 
             while ((linea = bufer1.readLine()) != null) {
