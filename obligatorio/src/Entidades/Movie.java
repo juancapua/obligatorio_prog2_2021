@@ -2,7 +2,6 @@ package Entidades;
 
 import Tads.MyLinkedListimpl;
 import Tads.MyList;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -64,13 +63,15 @@ public class Movie {
         this.imdbTitleld = datos[0];
         this.title = datos[1];
         this.originalTitle = datos[2];
+        System.out.println("estoy");
         this.year = Integer.parseInt(datos[3]);
         try {
             this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse(datos[4]);
         }catch (Exception e){}
-
         this.genre = datos[5].replace("\"", "").split(",");
-        this.duration = Integer.parseInt(datos[6]);
+        if(datos[6].length() != 0) {
+            this.duration = Integer.parseInt(datos[6]);
+        }
         this.country = datos[7].replace("\"", "").split(",");
         this.language = datos[8];
         this.director = datos[9].replace("\"", "").split(",");
@@ -78,16 +79,32 @@ public class Movie {
         this.productionCompany = datos[11];
         this.actors = datos[12].replace("\"", "").split(",");
         this.description = datos[13];
-        this.avgVote = Integer.parseInt(datos[14]);
-        this.votes = Integer.parseInt(datos[15]);
-        this.budget = datos[16];
-        this.usaGrossIncome = datos[17];
-        this.worldwideGrossIncome = datos[18];
-        this.metaScore = Float.parseFloat(datos[19]);;
-        this.reviewsFromUsers = Float.parseFloat(datos[20]);
-        this.reviewsFromCritics = Float.parseFloat(datos[21]);
+        if(datos[14].length() != 0) {
+            this.avgVote = Float.parseFloat(datos[14]);
+        }else{this.avgVote = 0;}
+        if(datos[15].length() != 0) {
+            this.votes = Integer.parseInt(datos[15]);
+        }else {this.votes = 0;}
+        if(datos[16].length() != 0) {
+            this.budget = datos[16];
+        }else {this.budget = null;}
+        if(datos[17].length() != 0) {
+            this.usaGrossIncome = datos[17];
+        }else {this.usaGrossIncome = null;}
+        if(datos[18].length() != 0) {
+            this.worldwideGrossIncome = datos[18];
+        }else {this.worldwideGrossIncome = null;}
+        if(datos[19].length() != 0) {
+            this.metaScore = Float.parseFloat(datos[19]);
+        }else{this.metaScore = 0;}
+        if(datos[20].length() != 0) {
+            this.reviewsFromUsers = Float.parseFloat(datos[20]);
+        }else {this.reviewsFromUsers = 0;}
+        if(datos[21].length() != 0) {
+            this.reviewsFromCritics = Float.parseFloat(datos[21]);
+        }else {this.reviewsFromCritics = 0;}
         this.movieRating = null;
-        this.listaMovieCastMember = new MyLinkedListimpl<>();
+        this.listaMovieCastMember = new MyLinkedListimpl<MovieCastMember>();
     }
 
     public String getImdbTitleld() {
@@ -281,4 +298,5 @@ public class Movie {
     public void setListaMovieCastMember(MovieCastMember nuevo) {
         this.listaMovieCastMember.add(nuevo);
     }
+
 }

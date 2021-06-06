@@ -24,9 +24,9 @@ public class Reader{
 
         System.out.println("Cargando datos...");
 
-        String path1 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
+        String path1 = "Data/IMDb names.csv";
         String path2 = "Data/IMDb movies.csv";
-        String path3 = "DaData/IMDb title_principals.csv";
+        String path3 = "Data/IMDb title_principals.csv";
         String path4 = "Data/IMDb ratings.csv";
 
         String linea = null;
@@ -41,7 +41,6 @@ public class Reader{
                 String[] lecturaLinea = separarPeroBien(linea);
                 if (lecturaLinea[6] != null) {
                     castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea));
-                    System.out.println(lecturaLinea[0]);
                     key = lecturaLinea[0];
 
                 } else {
@@ -51,7 +50,7 @@ public class Reader{
                 }
 
             }
-            System.out.println("llegue");
+            System.out.println("cargo castMembers");
         } catch(FileNotFoundException e){
             e.printStackTrace();
         } catch(IOException e){
@@ -62,11 +61,13 @@ public class Reader{
 
         try {
 
+            System.out.println("empezo movie");
             BufferedReader bufer2 = new BufferedReader(new FileReader(path2));
             bufer2.readLine();
 
             while ((linea = bufer2.readLine()) != null) {
                 String[] lecturaLinea2 = separarPeroBien(linea);
+                System.out.println(linea);
                 movieHash.put(lecturaLinea2[0],new Movie(lecturaLinea2));
 
 
@@ -76,14 +77,17 @@ public class Reader{
         } catch(IOException e){
             e.printStackTrace();
         }
+        System.out.println("termino movie");
 
         try {
 
+            System.out.println("empezo movieCastMembers");
             BufferedReader bufer3 = new BufferedReader(new FileReader(path3));
             bufer3.readLine();
 
             while ((linea = bufer3.readLine()) != null) {
                 String[] lecturaLinea3 = separarPeroBien(linea);
+                System.out.println(linea);
                 movieHash.get(lecturaLinea3[0]).setListaMovieCastMember(new MovieCastMember(lecturaLinea3));
                 int aux = Integer.parseInt(lecturaLinea3[1]);
                 movieHash.get(lecturaLinea3[0]).getListaMovieCastMember().get(aux).setCastMemeber(castMemberHash.get(lecturaLinea3[2]));
@@ -96,6 +100,7 @@ public class Reader{
         } catch (KeyNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("termino movieCastMember");
 
         try {
 
@@ -121,9 +126,7 @@ public class Reader{
 
     public String[] separarPeroBien (String entrada){
         final String regex = ",(\"([^\"]*)\"|[^,]*)";
-        System.out.println(entrada);
         final String text = entrada.replace("\"\"","'").replace(",'\"",",\"'");
-        System.out.println(text);
 
         final Pattern pattern = Pattern.compile(regex);
         final Matcher matcher = pattern.matcher("," + text);

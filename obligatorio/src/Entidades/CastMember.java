@@ -59,7 +59,6 @@ public class CastMember {
 
     public CastMember(String[] lectura) {
 
-        System.out.println("entro constructor");
         this.imdbNameid = lectura[0];
         this.name = lectura[1];
         this.birthName = lectura[2];
@@ -76,17 +75,14 @@ public class CastMember {
             this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
         } catch (Exception e) {}
         Integer shift = 0;
-        System.out.println(shift);
         this.spousesList = new MyLinkedListimpl<String>();
         if((lectura[12] != null && lectura[13] != null && lectura[14] == null)||lectura[17]!=null){
             lectura[12] = lectura[12] + lectura[13];
             shift=1;
         }
-        System.out.println(shift);
         if(lectura[12].length() != 0) {
             this.spousesList.add(lectura[12]);
         }
-        System.out.println(shift);
         if (lectura[13+shift] != null){
             this.spouses = Integer.parseInt(lectura[13+shift]);
             this.divorces = Integer.parseInt(lectura[14+shift]);
@@ -97,8 +93,6 @@ public class CastMember {
         if(lectura[11].length() != 0){
             this.causeOfDeaths.add(new CauseOfDeath(lectura[11]));
         }
-        System.out.println("termino constructor");
-
 
     }
 
