@@ -71,26 +71,32 @@ public class CastMember {
             this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[6]);
         }catch (Exception e){}
         String[] lugar = separarLugar(lectura[7]);
-        for(String x: lugar){
-            System.out.println(x);
-        }
-        if(lugar[2] == "aa") {
+        System.out.println(lugar.length);
+        if(lugar.length == 1) {
+            this.birthCity = null;
+            this.birthCountry = lugar[0];
+            this.birthState = null;
+        }if(lugar.length == 2){
             this.birthCity = lugar[0];
             this.birthCountry = lugar[1];
             this.birthState = null;
-        }else {
+        }if(lugar.length == 3){
             this.birthState = lugar[1];
             this.birthCountry = lugar[2];
             this.birthCity = lugar[0];
         }
-;
+
         if(lectura[9].length() != 0) {
             try {
                 this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
             } catch (Exception e) {}
-            this.deathState = separarLugar(lectura[10])[1];
-            this.deathCountry = separarLugar(lectura[10])[2];
-            this.deathCity = separarLugar(lectura[10])[0];
+            if(separarLugar(lectura[10]).length == 3) {
+                this.deathState = separarLugar(lectura[10])[1];
+                this.deathCountry = separarLugar(lectura[10])[2];
+                this.deathCity = separarLugar(lectura[10])[0];
+            }else{
+                this.deathCountry = lectura[10];
+            }
         }else{
             this.deathDate = null;
             this.deathState = null;
@@ -98,8 +104,10 @@ public class CastMember {
             this.deathCity = null;
         }
         this.spousesList = new MyLinkedListimpl<String>();
-        System.out.println("llegue aca");
-
+        if(lectura[12] != null && lectura[13] != null && lectura[14] == null){
+            lectura[12] = lectura[12] + lectura[13];
+            lectura[13] = null;
+        }
         if(lectura[12].length() != 0) {
             this.spousesList.add(lectura[12]);
         }
@@ -110,7 +118,9 @@ public class CastMember {
             this.children = Integer.parseInt(lectura[16]);
         }
         this.causeOfDeaths = new MyLinkedListimpl<CauseOfDeath>();
-        this.causeOfDeaths.add(new CauseOfDeath(lectura[11]));
+        if(lectura[11].length() != 0){
+            this.causeOfDeaths.add(new CauseOfDeath(lectura[11]));
+        }
         System.out.println("termino constructor");
 
 
@@ -280,8 +290,7 @@ public class CastMember {
 
     public String[] separarLugar(String lugar){
 
-        String lugar2 = lugar + ",aa,";
-        String[] aux = lugar2.split(",");
+        String[] aux = lugar.split(",");
 
         return aux;
 
