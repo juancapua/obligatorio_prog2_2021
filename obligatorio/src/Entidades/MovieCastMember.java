@@ -30,13 +30,8 @@ public class MovieCastMember {
             this.job = lectura[4];
         }else{this.job = null;}
         if(lectura[5].length() != 0) {
-            this.characters = lectura[5].replace("\"", "").replace("[", "").replace("]", "").split(",");
+            this.characters = lectura[5].replace("\"", "").replace("[", "").replace("]", "").replace("'", "").split(",");
         }
-        //this.characters = new String[0];
-        //this.characters.add();
-
-        //FIXME agregar los characters
-
 
     }
 

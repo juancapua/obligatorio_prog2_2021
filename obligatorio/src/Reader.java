@@ -85,10 +85,9 @@ public class Reader{
 
             while ((linea = bufer3.readLine()) != null) {
                 String[] lecturaLinea3 = separarPeroBien(linea);
-                System.out.println(linea);
                 movieHash.get(lecturaLinea3[0]).setListaMovieCastMember(new MovieCastMember(lecturaLinea3));
                 int aux = Integer.parseInt(lecturaLinea3[1]);
-                movieHash.get(lecturaLinea3[0]).getListaMovieCastMember().get(aux).setCastMemeber(castMemberHash.get(lecturaLinea3[2]));
+                movieHash.get(lecturaLinea3[0]).getListaMovieCastMember().get(aux - 1).setCastMemeber(castMemberHash.get(lecturaLinea3[2]));
 
             }
         } catch(FileNotFoundException e){
@@ -100,6 +99,7 @@ public class Reader{
         }
         System.out.println("termino movieCastMember");
 
+        System.out.println("empezo ratings");
         try {
 
             BufferedReader bufer4 = new BufferedReader(new FileReader(path4));
@@ -107,6 +107,7 @@ public class Reader{
 
             while ((linea = bufer4.readLine()) != null) {
                 String[] lecturaLinea4 = separarPeroBien(linea);
+                System.out.println(linea);
                 movieHash.get(lecturaLinea4[0]).setMovieRating(new MovieRating(lecturaLinea4));
 
             }
@@ -117,6 +118,7 @@ public class Reader{
         } catch (KeyNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("termino ratings");
 
         System.out.println("Datos cargados");
 
