@@ -107,7 +107,7 @@ public class Reader{
 
             while ((linea = bufer4.readLine()) != null) {
                 String[] lecturaLinea4 = separarPeroBien(linea);
-                System.out.println(linea);
+                //System.out.println(linea);
                 movieHash.get(lecturaLinea4[0]).setMovieRating(new MovieRating(lecturaLinea4));
 
             }

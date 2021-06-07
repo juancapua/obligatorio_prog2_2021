@@ -20,20 +20,23 @@ public class Principal {
                 switch (aux){
 
                     case 1:
-                        if(entre){
-                            System.out.println("ERROR, ya se han cargado los datos");
-                        }
-                        entre = true;
+                        if(!entre){
+                            entre = true;
+                            Reader reader = new Reader();
+                            reader.cargaDatos();
 
-                        Reader reader = new Reader();
-                        reader.cargaDatos();
+                        }else{System.out.println("ERROR, ya se han cargado los datos");}
+
+                        break;
+
 
 
                     case 2:
-                        if(entre = false){
-                            System.out.println("ERROR, no se han cargado los datos aun");
-                            break;
-                        }
+                        if(entre){
+
+                            //van las consultas
+                            
+                        }else{System.out.println("ERROR, no se han cargado los datos aun");}
 
                         break;
 
