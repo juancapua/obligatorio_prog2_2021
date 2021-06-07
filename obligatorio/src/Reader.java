@@ -61,13 +61,11 @@ public class Reader{
 
         try {
 
-            System.out.println("empezo movie");
             BufferedReader bufer2 = new BufferedReader(new FileReader(path2));
             bufer2.readLine();
 
             while ((linea = bufer2.readLine()) != null) {
                 String[] lecturaLinea2 = separarPeroBien(linea);
-                System.out.println(linea);
                 movieHash.put(lecturaLinea2[0],new Movie(lecturaLinea2));
 
 
@@ -77,7 +75,7 @@ public class Reader{
         } catch(IOException e){
             e.printStackTrace();
         }
-        System.out.println("termino movie");
+        System.out.println("cargo movie");
 
         try {
 

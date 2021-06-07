@@ -63,11 +63,17 @@ public class Movie {
         this.imdbTitleld = datos[0];
         this.title = datos[1];
         this.originalTitle = datos[2];
-        System.out.println("estoy");
-        this.year = Integer.parseInt(datos[3]);
-        try {
-            this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse(datos[4]);
-        }catch (Exception e){}
+
+        if(!datos[3].equals("TV Movie 2019")){
+            this.year = Integer.parseInt(datos[3]);
+        }else{this.year = 2019;}
+        if(!datos[4].equals("TV Movie 2019")) {
+            try {
+                this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse(datos[4]);
+            } catch (Exception e) {}
+        }else { try {
+            this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse("2019");
+        } catch (Exception e) {}}
         this.genre = datos[5].replace("\"", "").split(",");
         if(datos[6].length() != 0) {
             this.duration = Integer.parseInt(datos[6]);
