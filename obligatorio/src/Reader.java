@@ -22,6 +22,8 @@ public class Reader{
 
     public void cargaDatos() {
 
+        long TInicio = System.currentTimeMillis();
+
         System.out.println("Cargando datos...");
 
         String path1 = "Data/IMDb names.csv";
@@ -50,7 +52,6 @@ public class Reader{
                 }
 
             }
-            System.out.println("cargo castMembers");
         } catch(FileNotFoundException e){
             e.printStackTrace();
         } catch(IOException e){
@@ -75,11 +76,9 @@ public class Reader{
         } catch(IOException e){
             e.printStackTrace();
         }
-        System.out.println("cargo movie");
 
         try {
 
-            System.out.println("empezo movieCastMembers");
             BufferedReader bufer3 = new BufferedReader(new FileReader(path3));
             bufer3.readLine();
 
@@ -97,7 +96,6 @@ public class Reader{
         } catch (KeyNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("termino movieCastMember");
 
         System.out.println("empezo ratings");
         try {
@@ -120,9 +118,39 @@ public class Reader{
         }
         System.out.println("termino ratings");
 
-        System.out.println("Datos cargados");
+        long TFin = System.currentTimeMillis();
+        long tiempo = TFin - TInicio;
+
+        System.out.println("Carga de datos exitosa, tiempo de ejecución de la carga:" + tiempo);
 
     }
+
+    public void consulta1(){
+
+        //consulta 1
+
+    }
+    public void consulta2(){
+
+        //consulta 2
+
+    }
+    public void consulta3(){
+
+        //consulta 3
+
+    }
+    public void consulta4(){
+
+        //consulta 4
+
+    }
+    public void consulta5(){
+
+        //consulta 5
+
+    }
+
 
     public String[] separarPeroBien (String entrada){
         final String regex = ",(\"([^\"]*)\"|[^,]*)";
