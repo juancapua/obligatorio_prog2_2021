@@ -97,7 +97,6 @@ public class Reader{
             e.printStackTrace();
         }
 
-        System.out.println("empezo ratings");
         try {
 
             BufferedReader bufer4 = new BufferedReader(new FileReader(path4));
@@ -105,7 +104,6 @@ public class Reader{
 
             while ((linea = bufer4.readLine()) != null) {
                 String[] lecturaLinea4 = separarPeroBien(linea);
-                //System.out.println(linea);
                 movieHash.get(lecturaLinea4[0]).setMovieRating(new MovieRating(lecturaLinea4));
 
             }
@@ -116,7 +114,6 @@ public class Reader{
         } catch (KeyNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("termino ratings");
 
         long TFin = System.currentTimeMillis();
         long tiempo = TFin - TInicio;
