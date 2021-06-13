@@ -11,4 +11,6 @@ public interface MyList<T> {
     void remove(T value);
 
     int size();
+
+    public Nodo<T> getPrimero();
 }
