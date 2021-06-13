@@ -18,6 +18,8 @@ public class Reader{
     public static OpenHash<String, CastMember> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
 
+    boolean entre_consulta1 = false;
+
 
     public void cargaDatos() {
 
@@ -25,10 +27,15 @@ public class Reader{
 
         System.out.println("Cargando datos...");
 
-        String path1 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
-        String path2 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb movies.csv";
-        String path3 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb title_principals.csv";
-        String path4 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb ratings.csv";
+//        String path1 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
+//        String path2 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb movies.csv";
+//        String path3 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb title_principals.csv";
+//        String path4 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb ratings.csv";
+
+        String path1 = "Data/IMDb names.csv";
+        String path2 = "Data/IMDb movies.csv";
+        String path3 = "Data/IMDb title_principals.csv";
+        String path4 = "Data/IMDb ratings.csv";
 
         String linea = null;
         String key = null;
@@ -128,19 +135,25 @@ public class Reader{
 
         int n=movieHash.size();
 
-        for (MyList<HashNode<String, Movie>> i:hashMovies ) {
-            if (i!=null){
-                Nodo<HashNode<String, Movie>> movie=i.getPrimero();
-                while(movie!=null){
-                    MyLinkedListimpl<MovieCastMember> listaCastMembersPorPelicula = (MyLinkedListimpl<MovieCastMember>) movie.getValue().getValue().getListaMovieCastMember();
-                    Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
-                    while(movieCastMember!=null){
-                        if (movieCastMember.getValue().getCategory().equals("actor") || movieCastMember.getValue().getCategory().equals("actress")){movieCastMember.getValue().getCastMemeber().addApariciones();}
-                        movieCastMember=movieCastMember.getSiguiente();
+        if(!entre_consulta1) {
+
+            for (MyList<HashNode<String, Movie>> i : hashMovies) {
+                if (i != null) {
+                    Nodo<HashNode<String, Movie>> movie = i.getPrimero();
+                    while (movie != null) {
+                        MyLinkedListimpl<MovieCastMember> listaCastMembersPorPelicula = (MyLinkedListimpl<MovieCastMember>) movie.getValue().getValue().getListaMovieCastMember();
+                        Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
+                        while (movieCastMember != null) {
+                            if (movieCastMember.getValue().getCategory().equals("actor") || movieCastMember.getValue().getCategory().equals("actress")) {
+                                movieCastMember.getValue().getCastMemeber().addApariciones();
+                            }
+                            movieCastMember = movieCastMember.getSiguiente();
+                        }
+                        movie = movie.getSiguiente();
                     }
-                    movie=movie.getSiguiente();
                 }
             }
+            entre_consulta1 = true;
         }
 
 
@@ -165,6 +178,7 @@ public class Reader{
                 actor=hashCastMembers[--n].getPrimero();
             }
         }
+
         for (int j = 0; j < 5; j++) {
             System.out.println("Nombre actor/actriz: " + top5[j].getName());
             System.out.println("Cantidad de apariciones: "+ top5[j].getApariciones());
