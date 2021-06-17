@@ -1,6 +1,6 @@
 package Tads;
 
-public interface MyList<T> {
+public interface MyList<T> extends Iterable<T> {
 
     void add(T value);
 
@@ -11,6 +11,4 @@ public interface MyList<T> {
     void remove(T value);
 
     int size();
-
-    public Nodo<T> getPrimero();
 }

@@ -1,5 +1,7 @@
 package Tads;
 
+import java.util.Iterator;
+
 public class CloseHashImpl<K extends Comparable<K>, V> implements MyHash<K, V> {
 
     private int size;
@@ -197,4 +199,8 @@ public class CloseHashImpl<K extends Comparable<K>, V> implements MyHash<K, V> {
         return hash;
     }
 
+    @Override
+    public Iterator<V> iterator() {
+        return null;
+    }
 }

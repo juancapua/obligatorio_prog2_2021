@@ -121,10 +121,13 @@ public class CastMember {
         if (lectura[11].length() != 0) {
             CauseOfDeath causa = new CauseOfDeath(lectura[11]);
             if (listaDeLaMuerte.size()!=0 && listaDeLaMuerte.contains(causa)) {
-                Nodo<CauseOfDeath> NodoActual = listaDeLaMuerte.getPrimero();
-                while(NodoActual!=null){
-                    if(NodoActual.getValue().getName().equals(lectura[11])){this.causeOfDeath=NodoActual.getValue();}
-                    NodoActual=NodoActual.getSiguiente();
+//                Nodo<CauseOfDeath> NodoActual = listaDeLaMuerte.getPrimero();
+//                while(NodoActual!=null){
+//                    if(NodoActual.getValue().getName().equals(lectura[11])){this.causeOfDeath=NodoActual.getValue();}
+//                    NodoActual=NodoActual.getSiguiente();
+//                }
+                for(CauseOfDeath causaMuerte:listaDeLaMuerte){
+                    if(causaMuerte.getName().equals(lectura[11])){this.causeOfDeath=causaMuerte;}
                 }
             } else {
                 this.causeOfDeath=new CauseOfDeath(lectura[11]);

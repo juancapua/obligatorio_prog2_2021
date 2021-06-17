@@ -1,6 +1,6 @@
 package Tads;
 
-public interface MyHash<K, V> {
+public interface MyHash<K, V> extends Iterable<V> {
 
     void put(K key, V value);
 

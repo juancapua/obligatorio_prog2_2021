@@ -1,5 +1,7 @@
 package Tads;
 
+import java.util.Iterator;
+
 public class MyLinkedListimpl<T> implements MyList<T>{
 
     private Nodo<T> primero;
@@ -87,7 +89,29 @@ public class MyLinkedListimpl<T> implements MyList<T>{
         return size;
     }
 
-    public Nodo<T> getPrimero() {
-        return primero;
+//    public Nodo<T> getPrimero() {
+//        return primero;
+//    }
+    private class IteradorLL implements Iterator<T> {
+
+        private Nodo<T> nodoSiguiente = primero;
+
+        @Override
+        public boolean hasNext() {
+            return nodoSiguiente != null;
+        }
+
+        @Override
+        public T next() {
+            T ret = nodoSiguiente.getValue();
+            nodoSiguiente = nodoSiguiente.getSiguiente();
+            return ret;
+        }
+
     }
+    @Override
+    public Iterator<T> iterator() {
+        return new IteradorLL();
+    }
+
 }

@@ -1,3 +1,5 @@
+import Tads.OpenHash;
+
 import java.util.Scanner;
 
 public class Principal {
@@ -14,7 +16,14 @@ public class Principal {
 
             System.out.println("Seleccione la opción que desee:");
             System.out.println("1. Carga de datos\n" + "2. Ejecutar consultas\n" + "3. salir");
-
+//            OpenHash<Integer,Integer> hash=new OpenHash<>(10);
+//            hash.put(35,35);
+//            hash.put(25,25);
+//            hash.put(11,11);
+//            hash.put(23,23);
+//            for(int i:hash){
+//                System.out.println(i);
+//            }
             try {
                int aux = Integer.parseInt(sc.nextLine());
 
@@ -74,7 +83,7 @@ public class Principal {
                                             break;
                                     }
 
-                                } catch (Exception e) {
+                                } catch (AbstractMethodError e) {
                                 }
 
                             }
@@ -93,7 +102,7 @@ public class Principal {
                         System.out.println("Opcion incorrecta");
                         break;
                 }
-            }catch (Exception e){}
+            }catch (AbstractMethodError e){}
 
 
         }
