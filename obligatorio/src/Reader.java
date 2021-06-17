@@ -299,50 +299,67 @@ public class Reader{
     public void consulta3(){
 
         long TInicio = System.currentTimeMillis();
+        Movie[] listaPeliculasConsulta3=new Movie[15];
+        int i=-1;
 
         if(entre_consulta3==false) {
-            entre_consulta3=true;
-            MyList<HashNode<String, Movie>>[] hashMovies = movieHash.getHash();
+            entre_consulta3 = true;
+//            MyList<HashNode<String, Movie>>[] hashMovies = movieHash.getHash();
+//
+//            for (MyList<HashNode<String, Movie>> i : hashMovies) {
+//                if (i != null) {
+//                    Nodo<HashNode<String, Movie>> movie = i.getPrimero();
+//                    while (movie != null) {
+//                        MyList<MovieCastMember> listaCastMembersPorPelicula = movie.getValue().getValue().getListaMovieCastMember();
+//                        Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
+//                        while (movieCastMember != null) {
+//                            if ((movie.getValue().getValue().getYear() > 1949) && (movie.getValue().getValue().getYear() < 1961)) {
+//                                movie.getValue().getValue().addAlturasCastMember(movieCastMember.getValue().getCastMemeber());
+//                                listaPeliculasConsulta3.add(movie.getValue().getValue());
+//                            }
+//                            movieCastMember = movieCastMember.getSiguiente();
+//                        }
+//                        movie = movie.getSiguiente();
+//                    }
+//                }
+//            }
 
-            for (MyList<HashNode<String, Movie>> i : hashMovies) {
-                if (i != null) {
-                    Nodo<HashNode<String, Movie>> movie = i.getPrimero();
-                    while (movie != null) {
-                        MyList<MovieCastMember> listaCastMembersPorPelicula = movie.getValue().getValue().getListaMovieCastMember();
-                        Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
-                        while (movieCastMember != null) {
-                            if ((movie.getValue().getValue().getYear() > 1949) && (movie.getValue().getValue().getYear() < 1961)) {
-                                movie.getValue().getValue().addAlturasCastMember(movieCastMember.getValue().getCastMemeber());
-                                listaPeliculasConsulta3.add(movie.getValue().getValue());
-                            }
-                            movieCastMember = movieCastMember.getSiguiente();
-                        }
-                        movie = movie.getSiguiente();
+            for (Movie movie:movieHash){
+                for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
+                    if (movie.getYear()>1949&&movie.getYear()>1949){
+                        movie.addAlturasCastMember(movieCastMember.getCastMemeber());
                     }
                 }
+                int j=i;
+                if(i<13){i++;}
+                while(j>=0&&listaPeliculasConsulta3[j].getMovieRating().getWeightedAverage()<movie.getMovieRating().getWeightedAverage()){
+                    listaPeliculasConsulta3 [j+1]=listaPeliculasConsulta3[j];
+                    j--;
+                }
+                listaPeliculasConsulta3[j+1]=movie;
             }
         }
 
-        Nodo<Movie> pelicula = listaPeliculasConsulta3.getPrimero();
-        Movie[] top14=new Movie[15];
-
-        while(pelicula!=null){
-            int j=13;
-            while(j>=0 && top14[j]==null){j--;}
-            while(j>=0&&top14[j].getMovieRating().getWeightedAverage()<pelicula.getValue().getMovieRating().getWeightedAverage()){
-                top14[j+1]=top14[j];
-                j--;
-            }
-            top14[j+1]=pelicula.getValue();
-            pelicula=pelicula.getSiguiente();
-        }
+//        Nodo<Movie> pelicula = listaPeliculasConsulta3.getPrimero();
+//        Movie[] top14=new Movie[15];
+//
+//        while(pelicula!=null){
+//            int j=13;
+//            while(j>=0 && top14[j]==null){j--;}
+//            while(j>=0&&top14[j].getMovieRating().getWeightedAverage()<pelicula.getValue().getMovieRating().getWeightedAverage()){
+//                top14[j+1]=top14[j];
+//                j--;
+//            }
+//            top14[j+1]=pelicula.getValue();
+//            pelicula=pelicula.getSiguiente();
+//        }
 
         for (int j = 0; j < 14; j++) {
 
-            if(top14[j].promedioAltura() != 0) {
-                System.out.println("Id película: " + top14[j].getImdbTitleld());
-                System.out.println("Nombre: " + top14[j].getTitle());
-                System.out.println("Altura promedio de actores: " + top14[j].promedioAltura());
+            if(listaPeliculasConsulta3[j].promedioAltura() != 0) {
+                System.out.println("Id película: " + listaPeliculasConsulta3[j].getImdbTitleld());
+                System.out.println("Nombre: " + listaPeliculasConsulta3[j].getTitle());
+                System.out.println("Altura promedio de actores: " + listaPeliculasConsulta3[j].promedioAltura());
             }
         }
         long TFin = System.currentTimeMillis();
