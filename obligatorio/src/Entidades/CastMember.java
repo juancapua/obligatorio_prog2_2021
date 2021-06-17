@@ -333,4 +333,6 @@ public class CastMember {
     }
 
     public void setApariciones(int apariciones){this.apariciones=apariciones;}
+
+
 }
