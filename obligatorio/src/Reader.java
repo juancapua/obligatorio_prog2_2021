@@ -15,6 +15,7 @@ public class Reader{
     public static OpenHash<String, CastMember> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
     public static MyList<CauseOfDeath> listaDeLaMuerte = new MyLinkedListimpl<>();
+    public static MyList<Movie> listaPeliculasConsulta3 = new MyLinkedListimpl<>();
 
     boolean entre_consulta1 = false;
     boolean entre_consulta2 = false;
@@ -273,8 +274,9 @@ public class Reader{
                         MyList<MovieCastMember> listaCastMembersPorPelicula = movie.getValue().getValue().getListaMovieCastMember();
                         Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
                         while (movieCastMember != null) {
-                            if ((movie.getValue().getValue().getYear() > 1949) && (movie.getValue().getValue().getYear() < 1961) && (movieCastMember.getValue().getCastMemeber().getHeight() != 0)) {
-                                movieCastMember.getValue().getCastMemeber().setApariciones(-2);
+                            if ((movie.getValue().getValue().getYear() > 1949) && (movie.getValue().getValue().getYear() < 1961)) {
+                                movie.getValue().getValue().addAlturasCastMember(movieCastMember.getValue().getCastMemeber());
+                                listaPeliculasConsulta3.add(movie.getValue().getValue());
                             }
                             movieCastMember = movieCastMember.getSiguiente();
                         }
@@ -283,6 +285,34 @@ public class Reader{
                 }
             }
         }
+
+        Nodo<Movie> pelicula = listaPeliculasConsulta3.getPrimero();
+        Movie[] top14=new Movie[15];
+
+        while(pelicula!=null){
+            int j=13;
+            while(j>=0 && top14[j]==null){j--;}
+            while(j>=0&&top14[j].getMovieRating().getWeightedAverage()<pelicula.getValue().getMovieRating().getWeightedAverage()){
+                top14[j+1]=top14[j];
+                j--;
+            }
+            top14[j+1]=pelicula.getValue();
+            pelicula=pelicula.getSiguiente();
+        }
+
+        for (int j = 0; j < 14; j++) {
+
+            if(top14[j].promedioAltura() != 0) {
+                System.out.println("Id película: " + top14[j].getImdbTitleld());
+                System.out.println("Nombre: " + top14[j].getTitle());
+                System.out.println("Altura promedio de actores: " + top14[j].promedioAltura());
+            }
+        }
+        long TFin = System.currentTimeMillis();
+        long tiempo = TFin - TInicio;
+
+        System.out.println("Tiempo de ejecución de la consulta:" + tiempo);
+
 
     }
     public void consulta4(){

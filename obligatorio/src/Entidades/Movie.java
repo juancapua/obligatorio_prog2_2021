@@ -32,6 +32,9 @@ public class Movie {
     private MovieRating movieRating;
     private MyList<MovieCastMember> listaMovieCastMember;
 
+    private float sumaAlturas = 0;
+    private MyList<CastMember> alturasCastMember = new MyLinkedListimpl<>();
+
     public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, String[] genre, int duration, String[] country, String language, String[] director, String[] writer, String productionCompany, String[] actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics, MyList<MovieCastMember> listaMovieCastMember) {
         this.imdbTitleld = imdbTitleld;
         this.title = title;
@@ -305,4 +308,22 @@ public class Movie {
         this.listaMovieCastMember.add(nuevo);
     }
 
+    public MyList<CastMember> getAlturasCastMember() {
+        return alturasCastMember;
+    }
+
+    public void addAlturasCastMember(CastMember actor) {
+        this.alturasCastMember.add(actor);
+        this.sumaAlturas += actor.getHeight();
+    }
+
+    public float promedioAltura(){
+
+        if(alturasCastMember.size() != 0){
+
+            return (this.sumaAlturas / alturasCastMember.size());
+
+        }else{return 0;}
+
+    }
 }
