@@ -18,6 +18,7 @@ public class Reader{
 
     boolean entre_consulta1 = false;
     boolean entre_consulta2 = false;
+    boolean entre_consulta3 = false;
 
 
     public void cargaDatos() {
@@ -259,7 +260,29 @@ public class Reader{
     }
     public void consulta3(){
 
-        //consulta 3
+        long TInicio = System.currentTimeMillis();
+
+        if(entre_consulta3==false) {
+            entre_consulta3=true;
+            MyList<HashNode<String, Movie>>[] hashMovies = movieHash.getHash();
+
+            for (MyList<HashNode<String, Movie>> i : hashMovies) {
+                if (i != null) {
+                    Nodo<HashNode<String, Movie>> movie = i.getPrimero();
+                    while (movie != null) {
+                        MyList<MovieCastMember> listaCastMembersPorPelicula = movie.getValue().getValue().getListaMovieCastMember();
+                        Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
+                        while (movieCastMember != null) {
+                            if ((movie.getValue().getValue().getYear() > 1949) && (movie.getValue().getValue().getYear() < 1961) && (movieCastMember.getValue().getCastMemeber().getHeight() != 0)) {
+                                movieCastMember.getValue().getCastMemeber().setApariciones(-2);
+                            }
+                            movieCastMember = movieCastMember.getSiguiente();
+                        }
+                        movie = movie.getSiguiente();
+                    }
+                }
+            }
+        }
 
     }
     public void consulta4(){
