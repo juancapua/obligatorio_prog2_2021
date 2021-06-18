@@ -325,18 +325,20 @@ public class Reader{
 //            }
 
             for (Movie movie:movieHash){
-                for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
-                    if (movie.getYear()>1949&&movie.getYear()>1949){
-                        movie.addAlturasCastMember(movieCastMember.getCastMemeber());
+                if (movie.getYear()>1949&&movie.getYear()<1961) {
+                    int j=i;
+                    if(i<13){i++;}
+                    while(j>=0&&listaPeliculasConsulta3[j].getMovieRating().getWeightedAverage()<movie.getMovieRating().getWeightedAverage()){
+                        listaPeliculasConsulta3 [j+1]=listaPeliculasConsulta3[j];
+                        j--;
                     }
+                    listaPeliculasConsulta3[j+1]=movie;
                 }
-                int j=i;
-                if(i<13){i++;}
-                while(j>=0&&listaPeliculasConsulta3[j].getMovieRating().getWeightedAverage()<movie.getMovieRating().getWeightedAverage()){
-                    listaPeliculasConsulta3 [j+1]=listaPeliculasConsulta3[j];
-                    j--;
+
+                for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
+                    movie.addAlturasCastMember(movieCastMember.getCastMemeber());
                 }
-                listaPeliculasConsulta3[j+1]=movie;
+
             }
         }
 
@@ -355,8 +357,11 @@ public class Reader{
 //        }
 
         for (int j = 0; j < 14; j++) {
-
-            if(listaPeliculasConsulta3[j].promedioAltura() != 0) {
+            Movie movie=listaPeliculasConsulta3[j];
+            for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
+                movie.addAlturasCastMember(movieCastMember.getCastMemeber());
+            }
+            if(movie.promedioAltura() != 0) {
                 System.out.println("Id película: " + listaPeliculasConsulta3[j].getImdbTitleld());
                 System.out.println("Nombre: " + listaPeliculasConsulta3[j].getTitle());
                 System.out.println("Altura promedio de actores: " + listaPeliculasConsulta3[j].promedioAltura());
