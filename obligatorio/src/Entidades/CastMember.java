@@ -34,6 +34,7 @@ public class CastMember {
     private int children;
     private CauseOfDeath causeOfDeath;
     private int apariciones=0;
+    private MyList<MovieCastMember> listaMovieCastMember;
 
     public CastMember(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spouse, int spouses, int divorces, int spousesWithChildren, int children) {
         this.imdbNameid = imdbNameid;
@@ -135,6 +136,11 @@ public class CastMember {
             }
 
         }else{this.causeOfDeath=null;}
+        this.listaMovieCastMember=new MyLinkedListimpl<>();
+    }
+
+    public MyList<MovieCastMember> getListaMovieCastMember() {
+        return listaMovieCastMember;
     }
 
     public void continueCastMember(String[] lectura){

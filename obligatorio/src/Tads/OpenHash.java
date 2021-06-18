@@ -56,6 +56,7 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
 
 
     public boolean contains(K key) {
+        if (hash[hashFun(key)]==null){return false;}
         for (HashNode<K,V> nodo:hash[hashFun(key)]){
             if (nodo.getKey().equals(key)){return true;}
         }

@@ -15,6 +15,7 @@ public class Reader{
     public static OpenHash<String, CastMember> castMemberHash = new OpenHash<>(370000);
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
     public static MyList<CauseOfDeath> listaDeLaMuerte = new MyLinkedListimpl<>();
+    public static OpenHash<Integer,MyList<CastMember>> castMembersPorAño = new OpenHash<>(250);
 
     boolean entre_consulta1 = false;
     boolean entre_consulta2 = false;
@@ -50,6 +51,15 @@ public class Reader{
                 if (lecturaLinea[6] != null) {
                     castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea,listaDeLaMuerte));
                     key = lecturaLinea[0];
+                    if (castMemberHash.get(key).getBirthDate()!=null){
+                        if (castMembersPorAño.contains(castMemberHash.get(key).getBirthDate().getYear()+1900)){
+                            castMembersPorAño.get(castMemberHash.get(key).getBirthDate().getYear()+1900).add(castMemberHash.get(key));
+                        }else{
+                            castMembersPorAño.put(castMemberHash.get(key).getBirthDate().getYear()+1900,new MyLinkedListimpl<>(castMemberHash.get(key)));
+                        }
+
+
+                    }
 
                 } else {
 
@@ -91,9 +101,11 @@ public class Reader{
 
             while ((linea = bufer3.readLine()) != null) {
                 String[] lecturaLinea3 = separarPeroBien(linea,6);
-                movieHash.get(lecturaLinea3[0]).setListaMovieCastMember(new MovieCastMember(lecturaLinea3));
-                int aux = Integer.parseInt(lecturaLinea3[1]);
-                movieHash.get(lecturaLinea3[0]).getListaMovieCastMember().get(aux - 1).setCastMemeber(castMemberHash.get(lecturaLinea3[2]));
+                MovieCastMember movieCastMember=new MovieCastMember(lecturaLinea3);
+                movieHash.get(lecturaLinea3[0]).setListaMovieCastMember(movieCastMember);
+                movieCastMember.setCastMemeber(castMemberHash.get(lecturaLinea3[2]));
+                castMemberHash.get(lecturaLinea3[2]).getListaMovieCastMember().add(movieCastMember);
+
 
             }
         } catch(FileNotFoundException e){
@@ -374,7 +386,45 @@ public class Reader{
 
     }
     public void consulta4(){
+        long TInicio = System.currentTimeMillis();
+        Integer[] modaActor= new Integer[2];
+        Integer[] modaActriz = new Integer[2];
+        modaActriz[0]=0;
+        modaActor[0]=0;
+        for(MyList<CastMember> castMemberlista:castMembersPorAño){
+            int actores=0;
+            int actrices=0;
+            for (CastMember castMember:castMemberlista){
+                for(MovieCastMember movieCastMember:castMember.getListaMovieCastMember()){
+                    if (movieCastMember.getCategory().equals("actor")) {
+                        actores++;
+                        break;
+                    }else if (movieCastMember.getCategory().equals("actress")){
+                        actrices++;
+                        break;
+                    }
+                }
+            }
+            if (actores>modaActor[0]){
+                modaActor[0]=actores;
+                modaActor[1]=castMemberlista.get(0).getBirthDate().getYear()+1900;
+            }
+            if (actrices>modaActriz[0]){
+                modaActriz[0]=actrices;
+                modaActriz[1]=castMemberlista.get(0).getBirthDate().getYear()+1900;
+            }
 
+        }
+        System.out.println("Actores:");
+        System.out.println("\tAño: " + modaActor[1]);
+        System.out.println("\tCantidad: " + modaActor[0]);
+        System.out.println("Actrices:");
+        System.out.println("\tAño: " + modaActriz[1]);
+        System.out.println("\tCantidad: " + modaActriz[0]);
+        long TFin = System.currentTimeMillis();
+        long tiempo = TFin - TInicio;
+
+        System.out.println("Tiempo de ejecución de la consulta:" + tiempo);
         //consulta 4
 
     }

@@ -16,6 +16,12 @@ public class MyLinkedListimpl<T> implements MyList<T>{
         this.size = 0;
     }
 
+    public MyLinkedListimpl(T value) {
+        this.primero = new Nodo<>(value);
+        this.ultimo = this.primero;
+        this.size = 1;
+    }
+
 
     public void add(T value) {
         Nodo<T> nuevoNodo = new Nodo<>(value);
