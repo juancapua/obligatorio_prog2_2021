@@ -19,11 +19,11 @@ public class CastMember {
     private String birthName;
     private int height;
     private String bio;
-    private  Date birthDate;
+    private  int birthYear;
     private String birthState;
     private String birthCountry;
     private String birthCity;
-    private Date deathDate;
+    private int deathYear;
     private String deathState;
     private String deathCountry;
     private String deathCity;
@@ -36,17 +36,17 @@ public class CastMember {
     private int apariciones=0;
     private MyList<MovieCastMember> listaMovieCastMember;
 
-    public CastMember(String imdbNameid, String name, String birthName, int height, String bio, Date birthDate, String birthState, String birthCountry, String birthCity, Date deathDate, String deathState, String deathCountry, String deathCity, String spouse, int spouses, int divorces, int spousesWithChildren, int children) {
+    public CastMember(String imdbNameid, String name, String birthName, int height, String bio, int birthYear, String birthState, String birthCountry, String birthCity, int deathYear, String deathState, String deathCountry, String deathCity, String spouse, int spouses, int divorces, int spousesWithChildren, int children) {
         this.imdbNameid = imdbNameid;
         this.name = name;
         this.birthName = birthName;
         this.height = height;
         this.bio = bio;
-        this.birthDate = birthDate;
+        this.birthYear = birthYear;
         this.birthState = birthState;
         this.birthCountry = birthCountry;
         this.birthCity = birthCity;
-        this.deathDate = deathDate;
+        this.deathYear = deathYear;
         this.deathState = deathState;
         this.deathCountry = deathCountry;
         this.deathCity = deathCity;
@@ -58,9 +58,6 @@ public class CastMember {
         this.children = children;
 
 
-    }
-
-    public CastMember() {
     }
 
     public CastMember(String[] lectura,MyList<CauseOfDeath> listaDeLaMuerte) {
@@ -75,7 +72,7 @@ public class CastMember {
         }
         this.bio = lectura[4];
         try {
-            this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[6]);
+            this.birthYear = Integer.parseInt(lectura[5].substring(0,4));
         } catch (Exception e) {
         }
         if (lectura[7].length()!=0){
@@ -101,7 +98,7 @@ public class CastMember {
             }
         }
         try {
-            this.deathDate = new SimpleDateFormat("yyyy-MM-dd").parse(lectura[9]);
+            this.deathYear = Integer.parseInt(lectura[9].substring(0,4));
         } catch (Exception e) {
         }
         Integer shift = 0;
@@ -198,12 +195,12 @@ public class CastMember {
         this.bio = bio;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public int getBirthYear() {
+        return birthYear;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
     }
 
     public String getBirthState() {
@@ -230,12 +227,12 @@ public class CastMember {
         this.birthCity = birthCity;
     }
 
-    public Date getDeathDate() {
-        return deathDate;
+    public int getDeathYear() {
+        return deathYear;
     }
 
-    public void setDeathDate(Date deathDate) {
-        this.deathDate = deathDate;
+    public void setDeathYear(int deathYear) {
+        this.deathYear = deathYear;
     }
 
     public String getDeathState() {

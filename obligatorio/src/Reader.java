@@ -51,11 +51,11 @@ public class Reader{
                 if (lecturaLinea[6] != null) {
                     castMemberHash.put(lecturaLinea[0], new CastMember(lecturaLinea,listaDeLaMuerte));
                     key = lecturaLinea[0];
-                    if (castMemberHash.get(key).getBirthDate()!=null){
-                        if (castMembersPorAño.contains(castMemberHash.get(key).getBirthDate().getYear()+1900)){
-                            castMembersPorAño.get(castMemberHash.get(key).getBirthDate().getYear()+1900).add(castMemberHash.get(key));
+                    if (castMemberHash.get(key).getBirthYear()>0){
+                        if (castMembersPorAño.contains(castMemberHash.get(key).getBirthYear())){
+                            castMembersPorAño.get(castMemberHash.get(key).getBirthYear()).add(castMemberHash.get(key));
                         }else{
-                            castMembersPorAño.put(castMemberHash.get(key).getBirthDate().getYear()+1900,new MyLinkedListimpl<>(castMemberHash.get(key)));
+                            castMembersPorAño.put(castMemberHash.get(key).getBirthYear(),new MyLinkedListimpl<>(castMemberHash.get(key)));
                         }
 
 
@@ -314,8 +314,6 @@ public class Reader{
         Movie[] listaPeliculasConsulta3=new Movie[15];
         int i=-1;
 
-        if(entre_consulta3==false) {
-            entre_consulta3 = true;
 //            MyList<HashNode<String, Movie>>[] hashMovies = movieHash.getHash();
 //
 //            for (MyList<HashNode<String, Movie>> i : hashMovies) {
@@ -347,12 +345,10 @@ public class Reader{
                     listaPeliculasConsulta3[j+1]=movie;
                 }
 
-                for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
-                    movie.addAlturasCastMember(movieCastMember.getCastMemeber());
-                }
+
 
             }
-        }
+
 
 //        Nodo<Movie> pelicula = listaPeliculasConsulta3.getPrimero();
 //        Movie[] top14=new Movie[15];
@@ -371,7 +367,7 @@ public class Reader{
         for (int j = 0; j < 14; j++) {
             Movie movie=listaPeliculasConsulta3[j];
             for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
-                movie.addAlturasCastMember(movieCastMember.getCastMemeber());
+                if(movieCastMember.getCategory().equals("actor") || movieCastMember.getCategory().equals("actress")){movie.addAlturasCastMember(movieCastMember.getCastMemeber());}
             }
             if(movie.promedioAltura() != 0) {
                 System.out.println("Id película: " + listaPeliculasConsulta3[j].getImdbTitleld());
@@ -407,11 +403,11 @@ public class Reader{
             }
             if (actores>modaActor[0]){
                 modaActor[0]=actores;
-                modaActor[1]=castMemberlista.get(0).getBirthDate().getYear()+1900;
+                modaActor[1]=castMemberlista.get(0).getBirthYear();
             }
             if (actrices>modaActriz[0]){
                 modaActriz[0]=actrices;
-                modaActriz[1]=castMemberlista.get(0).getBirthDate().getYear()+1900;
+                modaActriz[1]=castMemberlista.get(0).getBirthYear();
             }
 
         }
