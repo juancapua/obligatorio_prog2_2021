@@ -21,6 +21,8 @@ public class Reader{
     boolean entre_consulta1 = false;
     boolean entre_consulta2 = false;
     boolean entre_consulta3 = false;
+    boolean entre_consulta4 = false;
+    boolean entre_consulta5 = false;
 
 
     public void cargaDatos() {
@@ -334,17 +336,22 @@ public class Reader{
 //                }
 //            }
 
-            for (Movie movie:movieHash){
-                if (movie.getYear()>1949&&movie.getYear()<1961) {
-                    int j=i;
-                    if(i<13){i++;}
-                    while(j>=0&&listaPeliculasConsulta3[j].getMovieRating().getWeightedAverage()<movie.getMovieRating().getWeightedAverage()){
-                        listaPeliculasConsulta3 [j+1]=listaPeliculasConsulta3[j];
-                        j--;
+            if(!entre_consulta3) {
+                for (Movie movie : movieHash) {
+                    if (movie.getYear() > 1949 && movie.getYear() < 1961) {
+                        int j = i;
+                        if (i < 13) {
+                            i++;
+                        }
+                        while (j >= 0 && listaPeliculasConsulta3[j].getMovieRating().getWeightedAverage() < movie.getMovieRating().getWeightedAverage()) {
+                            listaPeliculasConsulta3[j + 1] = listaPeliculasConsulta3[j];
+                            j--;
+                        }
+                        listaPeliculasConsulta3[j + 1] = movie;
                     }
-                    listaPeliculasConsulta3[j+1]=movie;
-                }
 
+                }
+                entre_consulta3 = true;
             }
 
 
@@ -385,30 +392,31 @@ public class Reader{
         Integer[] modaActriz = new Integer[2];
         modaActriz[0]=0;
         modaActor[0]=0;
-        for(MyList<CastMember> castMemberlista:castMembersPorAño){
-            int actores=0;
-            int actrices=0;
-            for (CastMember castMember:castMemberlista){
-                for(MovieCastMember movieCastMember:castMember.getListaMovieCastMember()){
+        for (MyList<CastMember> castMemberlista : castMembersPorAño) {
+            int actores = 0;
+            int actrices = 0;
+            for (CastMember castMember : castMemberlista) {
+                for (MovieCastMember movieCastMember : castMember.getListaMovieCastMember()) {
                     if (movieCastMember.getCategory().equals("actor")) {
                         actores++;
                         break;
-                    }else if (movieCastMember.getCategory().equals("actress")){
+                    } else if (movieCastMember.getCategory().equals("actress")) {
                         actrices++;
                         break;
                     }
                 }
             }
-            if (actores>modaActor[0]){
-                modaActor[0]=actores;
-                modaActor[1]=castMemberlista.get(0).getBirthYear();
+            if (actores > modaActor[0]) {
+                modaActor[0] = actores;
+                modaActor[1] = castMemberlista.get(0).getBirthYear();
             }
-            if (actrices>modaActriz[0]){
-                modaActriz[0]=actrices;
-                modaActriz[1]=castMemberlista.get(0).getBirthYear();
+            if (actrices > modaActriz[0]) {
+                modaActriz[0] = actrices;
+                modaActriz[1] = castMemberlista.get(0).getBirthYear();
             }
 
         }
+
         System.out.println("Actores:");
         System.out.println("\tAño: " + modaActor[1]);
         System.out.println("\tCantidad: " + modaActor[0]);
@@ -424,16 +432,19 @@ public class Reader{
     public void consulta5() throws KeyNotFoundException {
         long TInicio = System.currentTimeMillis();
 
-        for(Movie movie: movieHash){
+        if(!entre_consulta5) {
+            for (Movie movie : movieHash) {
 
-            for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
-                if((movieCastMember.getCategory().equals("actor") || movieCastMember.getCategory().equals("actress")) && movieCastMember.getCastMemeber().getChildren() > 1){
-                    for(String genero: movie.getGenre()){
-                        listaDeGeneros.get(genero).addCantidad();
+                for (MovieCastMember movieCastMember : movie.getListaMovieCastMember()) {
+                    if ((movieCastMember.getCategory().equals("actor") || movieCastMember.getCategory().equals("actress")) && movieCastMember.getCastMemeber().getChildren() > 1) {
+                        for (String genero : movie.getGenre()) {
+                            listaDeGeneros.get(genero).addCantidad();
+                        }
                     }
                 }
-            }
 
+            }
+            entre_consulta5 = true;
         }
 
         Generos[] top10=new Generos[11];
