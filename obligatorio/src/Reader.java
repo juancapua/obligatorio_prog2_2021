@@ -16,7 +16,7 @@ public class Reader{
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
     public static MyList<CauseOfDeath> listaDeLaMuerte = new MyLinkedListimpl<>();
     public static OpenHash<Integer,MyList<CastMember>> castMembersPorAño = new OpenHash<>(250);
-    public static OpenHash<String, Generos> listaDeGeneros = new OpenHash<>(60);
+    public static OpenHash<String, Generos> listaDeGeneros = new OpenHash<>(32);
 
     boolean entre_consulta1 = false;
     boolean entre_consulta2 = false;
@@ -440,6 +440,7 @@ public class Reader{
                         for (String genero : movie.getGenre()) {
                             listaDeGeneros.get(genero).addCantidad();
                         }
+                        break;
                     }
                 }
 
