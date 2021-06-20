@@ -1,3 +1,4 @@
+import Tads.KeyNotFoundException;
 import Tads.OpenHash;
 
 import java.util.Scanner;
@@ -84,6 +85,8 @@ public class Principal {
                                     }
 
                                 } catch (AbstractMethodError e) {
+                                } catch (KeyNotFoundException e) {
+                                    e.printStackTrace();
                                 }
 
                             }

@@ -1,15 +1,9 @@
 package Entidades;
 
-import Tads.HashNode;
 import Tads.MyLinkedListimpl;
 import Tads.MyList;
-import Tads.Nodo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
 
 
 public class CastMember {
@@ -20,13 +14,9 @@ public class CastMember {
     private int height;
     private String bio;
     private  int birthYear;
-    private String birthState;
-    private String birthCountry;
-    private String birthCity;
+    private String placeOfBirth;
     private int deathYear;
-    private String deathState;
-    private String deathCountry;
-    private String deathCity;
+    private String placeOfDeath;
     private MyList<String> spousesList;
     private int spouses;
     private int divorces;
@@ -36,20 +26,16 @@ public class CastMember {
     private int apariciones=0;
     private MyList<MovieCastMember> listaMovieCastMember;
 
-    public CastMember(String imdbNameid, String name, String birthName, int height, String bio, int birthYear, String birthState, String birthCountry, String birthCity, int deathYear, String deathState, String deathCountry, String deathCity, String spouse, int spouses, int divorces, int spousesWithChildren, int children) {
+    public CastMember(String imdbNameid, String name, String birthName, int height, String bio, int birthYear, String placeOfBirth, int deathYear, String placeOfDeath, String spouse, int spouses, int divorces, int spousesWithChildren, int children) {
         this.imdbNameid = imdbNameid;
         this.name = name;
         this.birthName = birthName;
         this.height = height;
         this.bio = bio;
         this.birthYear = birthYear;
-        this.birthState = birthState;
-        this.birthCountry = birthCountry;
-        this.birthCity = birthCity;
+        this.placeOfBirth = placeOfBirth;
         this.deathYear = deathYear;
-        this.deathState = deathState;
-        this.deathCountry = deathCountry;
-        this.deathCity = deathCity;
+        this.placeOfDeath = placeOfDeath;
         this.spousesList = new MyLinkedListimpl<String>();
         this.spousesList.add(spouse);
         this.spouses = spouses;
@@ -75,28 +61,8 @@ public class CastMember {
             this.birthYear = Integer.parseInt(lectura[5].substring(0,4));
         } catch (Exception e) {
         }
-        if (lectura[7].length()!=0){
-            String[] aux = lectura[7].split(", ");
-            this.birthCountry = aux[aux.length-1];
-            if (aux.length>2) {
-                this.birthState = aux[aux.length - 2];
-            }
-            if (aux.length>1){
-                this.birthCity=aux[0];
-                if (aux.length>=4){this.birthCity = birthCity + "," + aux[1];}
-            }
-        }
-        if (lectura[10].length()!=0){
-            String[] aux = lectura[10].split(", ");
-            this.deathCountry = aux[aux.length-1];
-            if (aux.length>2) {
-                this.deathState = aux[aux.length - 2];
-            }
-            if (aux.length>1){
-                this.deathCity=aux[0];
-                if (aux.length>=4){this.deathCity = deathCity + "," + aux[1];}
-            }
-        }
+        this.placeOfBirth = lectura[7];
+        this.placeOfDeath = lectura[10];
         try {
             this.deathYear = Integer.parseInt(lectura[9].substring(0,4));
         } catch (Exception e) {
@@ -125,7 +91,7 @@ public class CastMember {
 //                    NodoActual=NodoActual.getSiguiente();
 //                }
                 for(CauseOfDeath causaMuerte:listaDeLaMuerte){
-                    if(causaMuerte.getName().equals(lectura[11])){this.causeOfDeath=causaMuerte;}
+                    if(causaMuerte.getName().equalsIgnoreCase(lectura[11])){this.causeOfDeath=causaMuerte;}
                 }
             } else {
                 this.causeOfDeath=new CauseOfDeath(lectura[11]);
@@ -203,28 +169,12 @@ public class CastMember {
         this.birthYear = birthYear;
     }
 
-    public String getBirthState() {
-        return birthState;
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
     }
 
-    public void setBirthState(String birthState) {
-        this.birthState = birthState;
-    }
-
-    public String getBirthCountry() {
-        return birthCountry;
-    }
-
-    public void setBirthCountry(String birthCountry) {
-        this.birthCountry = birthCountry;
-    }
-
-    public String getBirthCity() {
-        return birthCity;
-    }
-
-    public void setBirthCity(String birthCity) {
-        this.birthCity = birthCity;
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
     }
 
     public int getDeathYear() {
@@ -235,28 +185,12 @@ public class CastMember {
         this.deathYear = deathYear;
     }
 
-    public String getDeathState() {
-        return deathState;
+    public String getPlaceOfDeath() {
+        return placeOfDeath;
     }
 
-    public void setDeathState(String deathState) {
-        this.deathState = deathState;
-    }
-
-    public String getDeathCountry() {
-        return deathCountry;
-    }
-
-    public void setDeathCountry(String deathCountry) {
-        this.deathCountry = deathCountry;
-    }
-
-    public String getDeathCity() {
-        return deathCity;
-    }
-
-    public void setDeathCity(String deathCity) {
-        this.deathCity = deathCity;
+    public void setPlaceOfDeath(String placeOfDeath) {
+        this.placeOfDeath = placeOfDeath;
     }
 
     public MyList getSpousesList() {

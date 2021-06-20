@@ -2,8 +2,7 @@ package Entidades;
 
 import Tads.MyLinkedListimpl;
 import Tads.MyList;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import Tads.OpenHash;
 
 public class Movie {
 
@@ -11,7 +10,7 @@ public class Movie {
     private String title;
     private String originalTitle;
     private int year;
-    private Date datePublished;
+    private String datePublished;
     private String[] genre;
     private int duration;
     private String[] country;
@@ -35,7 +34,7 @@ public class Movie {
     private float sumaAlturas = 0;
     private int alturasCastMember = 0;
 
-    public Movie(String imdbTitleld, String title, String originalTitle, int year, Date datePublished, String[] genre, int duration, String[] country, String language, String[] director, String[] writer, String productionCompany, String[] actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics, MyList<MovieCastMember> listaMovieCastMember) {
+    public Movie(String imdbTitleld, String title, String originalTitle, int year, String datePublished, String[] genre, int duration, String[] country, String language, String[] director, String[] writer, String productionCompany, String[] actors, String description, float avgVote, int votes, String budget, String usaGrossIncome, String worldwideGrossIncome, float metaScore, float reviewsFromUsers, float reviewsFromCritics, MyList<MovieCastMember> listaMovieCastMember) {
         this.imdbTitleld = imdbTitleld;
         this.title = title;
         this.originalTitle = originalTitle;
@@ -62,7 +61,7 @@ public class Movie {
         this.movieRating = null;
     }
 
-    public Movie(String[] datos) {
+    public Movie(String[] datos, OpenHash<String, Generos> listaDeGeneros) {
         this.imdbTitleld = datos[0];
         this.title = datos[1];
         this.originalTitle = datos[2];
@@ -70,14 +69,13 @@ public class Movie {
         if(!datos[3].equals("TV Movie 2019")){
             this.year = Integer.parseInt(datos[3]);
         }else{this.year = 2019;}
-        if(!datos[4].equals("TV Movie 2019")) {
-            try {
-                this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse(datos[4]);
-            } catch (Exception e) {}
-        }else { try {
-            this.datePublished = new SimpleDateFormat("yyyy-MM-dd").parse("2019");
-        } catch (Exception e) {}}
-        this.genre = datos[5].replace("\"", "").split(",");
+        this.datePublished = datos[4];
+        this.genre = datos[5].split(", ");
+        for(String genero: this.genre){
+            if (listaDeGeneros.size()==0 || !listaDeGeneros.contains(genero)){
+                listaDeGeneros.put(genero, new Generos(genero));
+            }
+        }
         if(datos[6].length() != 0) {
             this.duration = Integer.parseInt(datos[6]);
         }
@@ -114,6 +112,7 @@ public class Movie {
         }else {this.reviewsFromCritics = 0;}
         this.movieRating = null;
         this.listaMovieCastMember = new MyLinkedListimpl<MovieCastMember>();
+
     }
 
     public String getImdbTitleld() {
@@ -148,11 +147,11 @@ public class Movie {
         this.year = year;
     }
 
-    public Date getDatePublished() {
+    public String getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(Date datePublished) {
+    public void setDatePublished(String datePublished) {
         this.datePublished = datePublished;
     }
 

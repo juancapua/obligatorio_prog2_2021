@@ -16,6 +16,7 @@ public class Reader{
     public static OpenHash<String, Movie> movieHash = new OpenHash<>(110000);
     public static MyList<CauseOfDeath> listaDeLaMuerte = new MyLinkedListimpl<>();
     public static OpenHash<Integer,MyList<CastMember>> castMembersPorAño = new OpenHash<>(250);
+    public static OpenHash<String, Generos> listaDeGeneros = new OpenHash<>(60);
 
     boolean entre_consulta1 = false;
     boolean entre_consulta2 = false;
@@ -28,15 +29,15 @@ public class Reader{
 
         System.out.println("Cargando datos...");
 
-        String path1 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
-        String path2 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb movies.csv";
-        String path3 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb title_principals.csv";
-        String path4 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb ratings.csv";
+//        String path1 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
+//        String path2 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb movies.csv";
+//        String path3 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb title_principals.csv";
+//        String path4 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb ratings.csv";
 
-//        String path1 = "Data/IMDb names.csv";
-//        String path2 = "Data/IMDb movies.csv";
-//        String path3 = "Data/IMDb title_principals.csv";
-//        String path4 = "Data/IMDb ratings.csv";
+        String path1 = "Data/IMDb names.csv";
+        String path2 = "Data/IMDb movies.csv";
+        String path3 = "Data/IMDb title_principals.csv";
+        String path4 = "Data/IMDb ratings.csv";
 
         String linea = null;
         String key = null;
@@ -84,7 +85,7 @@ public class Reader{
 
             while ((linea = bufer2.readLine()) != null) {
                 String[] lecturaLinea2 = separarPeroBien(linea,22);
-                movieHash.put(lecturaLinea2[0],new Movie(lecturaLinea2));
+                movieHash.put(lecturaLinea2[0],new Movie(lecturaLinea2, listaDeGeneros));
 
 
             }
@@ -266,7 +267,7 @@ public class Reader{
             int i=0;
             for (Movie movie:movieHash){
                 for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
-                    if ((movieCastMember.getCastMemeber().getBirthCountry() != null) && (movieCastMember.getCastMemeber().getCauseOfDeath() != null) && (movieCastMember.getCastMemeber().getApariciones() == 0) && (movieCastMember.getCategory().equals("director") || movieCastMember.getCategory().equals("producer")) && (movieCastMember.getCastMemeber().getBirthCountry().equals("USA") || movieCastMember.getCastMemeber().getBirthCountry().equals("UK") || movieCastMember.getCastMemeber().getBirthCountry().equals("Italy") || movieCastMember.getCastMemeber().getBirthCountry().equals("France"))) {
+                    if ((movieCastMember.getCastMemeber().getCauseOfDeath() != null) && (movieCastMember.getCastMemeber().getApariciones() == 0) && (movieCastMember.getCategory().equals("director") || movieCastMember.getCategory().equals("producer")) && (movieCastMember.getCastMemeber().getPlaceOfBirth().contains("USA") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("UK") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("Italy") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("France"))) {
                         movieCastMember.getCastMemeber().setApariciones(-1);
                         movieCastMember.getCastMemeber().getCauseOfDeath().addVictimas();
                     }
@@ -305,7 +306,6 @@ public class Reader{
         long tiempo = TFin - TInicio;
 
         System.out.println("Tiempo de ejecución de la consulta:" + tiempo);
-        //consulta 2
 
     }
     public void consulta3(){
@@ -344,8 +344,6 @@ public class Reader{
                     }
                     listaPeliculasConsulta3[j+1]=movie;
                 }
-
-
 
             }
 
@@ -421,13 +419,43 @@ public class Reader{
         long tiempo = TFin - TInicio;
 
         System.out.println("Tiempo de ejecución de la consulta:" + tiempo);
-        //consulta 4
 
     }
-    public void consulta5(){
+    public void consulta5() throws KeyNotFoundException {
+        long TInicio = System.currentTimeMillis();
 
-        //consulta 5
+        for(Movie movie: movieHash){
 
+            for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
+                if((movieCastMember.getCategory().equals("actor") || movieCastMember.getCategory().equals("actress")) && movieCastMember.getCastMemeber().getChildren() > 1){
+                    for(String genero: movie.getGenre()){
+                        listaDeGeneros.get(genero).addCantidad();
+                    }
+                }
+            }
+
+        }
+
+        Generos[] top10=new Generos[11];
+        for(Generos genero:listaDeGeneros){
+            int j=9;
+            while(j>=0 && top10[j]==null){j--;}
+            while(j>=0&&top10[j].getCantidad()< genero.getCantidad()){
+                top10[j+1]=top10[j];
+                j--;
+            }
+            top10[j+1]=genero;
+        }
+
+        for (int j = 0; j < 10; j++) {
+            System.out.println("Genero pelicula: " + top10[j].getName());
+            System.out.println("Cantidad: " + top10[j].getCantidad());
+        }
+
+        long TFin = System.currentTimeMillis();
+        long tiempo = TFin - TInicio;
+
+        System.out.println("Tiempo de ejecución de la consulta:" + tiempo);
     }
 
 
