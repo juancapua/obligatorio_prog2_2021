@@ -39,11 +39,6 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
         for (HashNode<K,V> nodo:hash[hashFun(key)]){
             if (nodo.getKey().equals(key)){return nodo.getValue();}
         }
-//        Nodo<HashNode<K,V>> NodoActual = getNodoInicialSegunKey(key);
-//        while(NodoActual!=null){
-//            if(NodoActual.getValue().getKey().compareTo(key) == 0){return NodoActual.getValue().getValue();}
-//            NodoActual=NodoActual.getSiguiente();
-//        }
         throw new KeyNotFoundException();
 
 
@@ -60,11 +55,6 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
         for (HashNode<K,V> nodo:hash[hashFun(key)]){
             if (nodo.getKey().equals(key)){return true;}
         }
-//        Nodo<HashNode<K,V>> NodoActual = getNodoInicialSegunKey(key);
-//        while(NodoActual!=null){
-//            if(NodoActual.getValue().getKey().compareTo(key) == 0){return true;}
-//            NodoActual=NodoActual.getSiguiente();
-//        }
         return false;
 
     }
@@ -98,13 +88,6 @@ public class OpenHash<K extends Comparable<K>, V> implements MyHash<K, V>{
             lista=new MyLinkedListimpl<>();
         }
 
-
-//        if(actor.getSiguiente()!=null){actor=actor.getSiguiente();
-//        } else{
-//            if (n==0){break;}
-//            while(hashCastMembers[n-1]==null){n--;}
-//            if (n<0){break;}
-//            actor=hashCastMembers[--n].getPrimero();
 
         @Override
         public boolean hasNext() {

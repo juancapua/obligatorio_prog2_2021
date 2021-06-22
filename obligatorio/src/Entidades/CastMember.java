@@ -24,6 +24,7 @@ public class CastMember {
     private int children;
     private CauseOfDeath causeOfDeath;
     private int apariciones=0;
+    private boolean isDirector_producer = false;
     private MyList<MovieCastMember> listaMovieCastMember;
 
     public CastMember(String imdbNameid, String name, String birthName, int height, String bio, int birthYear, String placeOfBirth, int deathYear, String placeOfDeath, String spouse, int spouses, int divorces, int spousesWithChildren, int children) {
@@ -239,6 +240,14 @@ public class CastMember {
 
     public void addCauseOfDeath(CauseOfDeath causa) {
         this.causeOfDeath=causa;
+    }
+
+    public boolean isDirector_producer() {
+        return isDirector_producer;
+    }
+
+    public void setDirector_producer() {
+        isDirector_producer = true;
     }
 
     public void separarLugar(String lugar, String ciudad, String region, String pais){

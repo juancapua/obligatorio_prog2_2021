@@ -148,23 +148,6 @@ public class Reader{
         long TInicio = System.currentTimeMillis();
 
         if(!entre_consulta1) {
-//            MyList<HashNode<String, Movie>>[] hashMovies = movieHash.getHash();
-//            for (MyList<HashNode<String, Movie>> i : hashMovies) {
-//                if (i != null) {
-//                    Nodo<HashNode<String, Movie>> movie = i.getPrimero();
-//                    while (movie != null) {
-//                        MyList<MovieCastMember> listaCastMembersPorPelicula = movie.getValue().getValue().getListaMovieCastMember();
-//                        Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
-//                        while (movieCastMember != null) {
-//                            if (movieCastMember.getValue().getCategory().equals("actor") || movieCastMember.getValue().getCategory().equals("actress")) {
-//                                movieCastMember.getValue().getCastMemeber().addApariciones();
-//                            }
-//                            movieCastMember = movieCastMember.getSiguiente();
-//                        }
-//                        movie = movie.getSiguiente();
-//                    }
-//                }
-//            }
             for (Movie movie:movieHash){
                 for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
                     if (movieCastMember.getCategory().equals("actor") || movieCastMember.getCategory().equals("actress")) {
@@ -175,29 +158,6 @@ public class Reader{
 
             entre_consulta1 = true;
         }
-
-
-//        MyList<HashNode<String, CastMember>>[] hashCastMembers = castMemberHash.getHash();
-//        int n =castMemberHash.getSize();
-//        while(hashCastMembers[n-1]==null){n--;}
-//        Nodo<HashNode<String, CastMember>> actor=hashCastMembers[n-1].getPrimero();
-//        CastMember[] top5=new CastMember[6];
-//        while(n>=0){
-//            int j=4;
-//            while(j>=0 && top5[j]==null){j--;}
-//            while(j>=0&&top5[j].getApariciones()<actor.getValue().getValue().getApariciones()){
-//                top5[j+1]=top5[j];
-//                j--;
-//            }
-//            top5[j+1]=actor.getValue().getValue();
-//            if(actor.getSiguiente()!=null){actor=actor.getSiguiente();
-//            } else{
-//                if (n==0){break;}
-//                while(hashCastMembers[n-1]==null){n--;}
-//                if (n<0){break;}
-//                actor=hashCastMembers[--n].getPrimero();
-//            }
-//        }
 
         CastMember[] top5=new CastMember[6];
         for(CastMember actor:castMemberHash){
@@ -221,56 +181,17 @@ public class Reader{
 
     }
 
-//    private CastMember[] top5(Nodo<HashNode<String, CastMember>> actor, int posicion, MyList<HashNode<String, CastMember>>[] hashCastMembers) {
-//        CastMember[] top5=new CastMember[6];
-//        System.out.println(posicion);
-//        if(actor.getSiguiente()!=null){top5=top5(actor.getSiguiente(),posicion,hashCastMembers);}
-//        else if(posicion>=0){
-//            while(hashCastMembers[posicion-1]==null){posicion--;}
-//            if (posicion<0){return top5;}
-//            top5=top5(hashCastMembers[posicion-1].getPrimero(),posicion-1,hashCastMembers);
-//        }else{
-//            return top5;}
-//        int j=4;
-//        while(top5[j]==null){j--;}
-//        while(j>=0&&top5[j].getApariciones()<actor.getValue().getValue().getApariciones()){
-//            top5[j+1]=top5[j];
-//            j--;
-//        }
-//        top5[j+1]=actor.getValue().getValue();
-//        return top5;
-//
-//    }
 
     public void consulta2(){
         long TInicio = System.currentTimeMillis();
 
         if(entre_consulta2==false) {
             entre_consulta2=true;
-//            MyList<HashNode<String, Movie>>[] hashMovies = movieHash.getHash();
-//
-//            for (MyList<HashNode<String, Movie>> i : hashMovies) {
-//                if (i != null) {
-//                    Nodo<HashNode<String, Movie>> movie = i.getPrimero();
-//                    while (movie != null) {
-//                        MyList<MovieCastMember> listaCastMembersPorPelicula = movie.getValue().getValue().getListaMovieCastMember();
-//                        Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
-//                        while (movieCastMember != null) {
-//                            if ((movieCastMember.getValue().getCastMemeber().getBirthCountry() != null) && (movieCastMember.getValue().getCastMemeber().getCauseOfDeath() != null) && (movieCastMember.getValue().getCastMemeber().getApariciones() == 0) && (movieCastMember.getValue().getCategory().equals("director") || movieCastMember.getValue().getCategory().equals("producer")) && (movieCastMember.getValue().getCastMemeber().getBirthCountry().equals("USA") || movieCastMember.getValue().getCastMemeber().getBirthCountry().equals("UK") || movieCastMember.getValue().getCastMemeber().getBirthCountry().equals("Italy") || movieCastMember.getValue().getCastMemeber().getBirthCountry().equals("France"))) {
-//                                movieCastMember.getValue().getCastMemeber().setApariciones(-1);
-//                                movieCastMember.getValue().getCastMemeber().getCauseOfDeath().addVictimas();
-//                            }
-//                            movieCastMember = movieCastMember.getSiguiente();
-//                        }
-//                        movie = movie.getSiguiente();
-//                    }
-//                }
-//            }
             int i=0;
             for (Movie movie:movieHash){
                 for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
-                    if ((movieCastMember.getCastMemeber().getCauseOfDeath() != null) && (movieCastMember.getCastMemeber().getApariciones() == 0) && (movieCastMember.getCategory().equals("director") || movieCastMember.getCategory().equals("producer")) && (movieCastMember.getCastMemeber().getPlaceOfBirth().contains("USA") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("UK") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("Italy") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("France"))) {
-                        movieCastMember.getCastMemeber().setApariciones(-1);
+                    if ((movieCastMember.getCastMemeber().getCauseOfDeath() != null) && (!movieCastMember.getCastMemeber().isDirector_producer()) && (movieCastMember.getCategory().equals("director") || movieCastMember.getCategory().equals("producer")) && (movieCastMember.getCastMemeber().getPlaceOfBirth().contains("USA") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("UK") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("Italy") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("France"))) {
+                        movieCastMember.getCastMemeber().setDirector_producer();
                         movieCastMember.getCastMemeber().getCauseOfDeath().addVictimas();
                     }
                 }
@@ -287,19 +208,6 @@ public class Reader{
             top5[j+1]=causa;
         }
 
-//        Nodo<CauseOfDeath> causa = listaDeLaMuerte.getPrimero();
-//        CauseOfDeath[] top5=new CauseOfDeath[6];
-//
-//        while(causa!=null){
-//            int j=4;
-//            while(j>=0 && top5[j]==null){j--;}
-//            while(j>=0&&top5[j].getVictimas()<causa.getValue().getVictimas()){
-//                top5[j+1]=top5[j];
-//                j--;
-//            }
-//            top5[j+1]=causa.getValue();
-//            causa=causa.getSiguiente();
-//        }
         for (int j = 0; j < 5; j++) {
             System.out.println("Causa de muerte: " + top5[j].getName());
             System.out.println("Cantidad de personas: "+ top5[j].getVictimas());
@@ -315,26 +223,6 @@ public class Reader{
         long TInicio = System.currentTimeMillis();
         Movie[] listaPeliculasConsulta3=new Movie[15];
         int i=-1;
-
-//            MyList<HashNode<String, Movie>>[] hashMovies = movieHash.getHash();
-//
-//            for (MyList<HashNode<String, Movie>> i : hashMovies) {
-//                if (i != null) {
-//                    Nodo<HashNode<String, Movie>> movie = i.getPrimero();
-//                    while (movie != null) {
-//                        MyList<MovieCastMember> listaCastMembersPorPelicula = movie.getValue().getValue().getListaMovieCastMember();
-//                        Nodo<MovieCastMember> movieCastMember = listaCastMembersPorPelicula.getPrimero();
-//                        while (movieCastMember != null) {
-//                            if ((movie.getValue().getValue().getYear() > 1949) && (movie.getValue().getValue().getYear() < 1961)) {
-//                                movie.getValue().getValue().addAlturasCastMember(movieCastMember.getValue().getCastMemeber());
-//                                listaPeliculasConsulta3.add(movie.getValue().getValue());
-//                            }
-//                            movieCastMember = movieCastMember.getSiguiente();
-//                        }
-//                        movie = movie.getSiguiente();
-//                    }
-//                }
-//            }
 
             if(!entre_consulta3) {
                 for (Movie movie : movieHash) {
@@ -354,20 +242,6 @@ public class Reader{
                 entre_consulta3 = true;
             }
 
-
-//        Nodo<Movie> pelicula = listaPeliculasConsulta3.getPrimero();
-//        Movie[] top14=new Movie[15];
-//
-//        while(pelicula!=null){
-//            int j=13;
-//            while(j>=0 && top14[j]==null){j--;}
-//            while(j>=0&&top14[j].getMovieRating().getWeightedAverage()<pelicula.getValue().getMovieRating().getWeightedAverage()){
-//                top14[j+1]=top14[j];
-//                j--;
-//            }
-//            top14[j+1]=pelicula.getValue();
-//            pelicula=pelicula.getSiguiente();
-//        }
 
         for (int j = 0; j < 14; j++) {
             Movie movie=listaPeliculasConsulta3[j];

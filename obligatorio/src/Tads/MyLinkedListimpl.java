@@ -95,9 +95,6 @@ public class MyLinkedListimpl<T> implements MyList<T>{
         return size;
     }
 
-//    public Nodo<T> getPrimero() {
-//        return primero;
-//    }
     private class IteradorLL implements Iterator<T> {
 
         private Nodo<T> nodoSiguiente = primero;
