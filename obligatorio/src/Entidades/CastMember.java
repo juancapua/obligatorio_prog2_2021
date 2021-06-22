@@ -58,7 +58,7 @@ public class CastMember {
         }
         this.bio = lectura[4];
         try {
-            this.birthYear = Integer.parseInt(lectura[5].substring(0,4));
+            this.birthYear = Integer.parseInt(lectura[6].substring(0,4));
         } catch (Exception e) {
         }
         this.placeOfBirth = lectura[7];
