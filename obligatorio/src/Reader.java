@@ -20,8 +20,6 @@ public class Reader{
 
     boolean entre_consulta1 = false;
     boolean entre_consulta2 = false;
-    boolean entre_consulta3 = false;
-    boolean entre_consulta4 = false;
     boolean entre_consulta5 = false;
 
 
@@ -30,11 +28,6 @@ public class Reader{
         long TInicio = System.currentTimeMillis();
 
         System.out.println("Cargando datos...");
-
-//        String path1 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb names.csv";
-//        String path2 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb movies.csv";
-//        String path3 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb title_principals.csv";
-//        String path4 = "C:\\Users\\Ari 2.0\\IdeaProjects\\obligatorio_prog2_2021\\Data\\IMDb ratings.csv";
 
         String path1 = "Data/IMDb names.csv";
         String path2 = "Data/IMDb movies.csv";
@@ -223,25 +216,20 @@ public class Reader{
         long TInicio = System.currentTimeMillis();
         Movie[] listaPeliculasConsulta3=new Movie[15];
         int i=-1;
-
-            if(!entre_consulta3) {
-                for (Movie movie : movieHash) {
-                    if (movie.getYear() > 1949 && movie.getYear() < 1961) {
-                        int j = i;
-                        if (i < 13) {
-                            i++;
-                        }
-                        while (j >= 0 && listaPeliculasConsulta3[j].getMovieRating().getWeightedAverage() < movie.getMovieRating().getWeightedAverage()) {
-                            listaPeliculasConsulta3[j + 1] = listaPeliculasConsulta3[j];
-                            j--;
-                        }
-                        listaPeliculasConsulta3[j + 1] = movie;
-                    }
-
+        for (Movie movie : movieHash) {
+            if (movie.getYear() > 1949 && movie.getYear() < 1961) {
+                int j = i;
+                if (i < 13) {
+                    i++;
                 }
-                entre_consulta3 = true;
+                while (j >= 0 && listaPeliculasConsulta3[j].getMovieRating().getWeightedAverage() < movie.getMovieRating().getWeightedAverage()) {
+                    listaPeliculasConsulta3[j + 1] = listaPeliculasConsulta3[j];
+                    j--;
+                }
+                listaPeliculasConsulta3[j + 1] = movie;
             }
 
+        }
 
         for (int j = 0; j < 14; j++) {
             Movie movie=listaPeliculasConsulta3[j];
