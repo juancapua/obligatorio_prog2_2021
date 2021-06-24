@@ -92,7 +92,7 @@ public class CastMember {
 //                    NodoActual=NodoActual.getSiguiente();
 //                }
                 for(CauseOfDeath causaMuerte:listaDeLaMuerte){
-                    if(causaMuerte.getName().equalsIgnoreCase(lectura[11])){this.causeOfDeath=causaMuerte;}
+                    if(causaMuerte.getName().equals(lectura[11])){this.causeOfDeath=causaMuerte;}
                 }
             } else {
                 this.causeOfDeath=new CauseOfDeath(lectura[11]);

@@ -25,7 +25,7 @@ public class CauseOfDeath {
     public boolean equals(Object obj) {
         boolean equalsToReturn = false;
 
-        equalsToReturn = ((CauseOfDeath) obj).getName().equalsIgnoreCase(this.name);
+        equalsToReturn = ((CauseOfDeath) obj).getName().equals(this.name);
 
         return equalsToReturn;
     }
