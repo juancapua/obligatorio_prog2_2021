@@ -79,12 +79,12 @@ public class Movie {
         if(datos[6].length() != 0) {
             this.duration = Integer.parseInt(datos[6]);
         }
-        this.country = datos[7].replace("\"", "").split(",");
+        this.country = datos[7].split(",");
         this.language = datos[8];
-        this.director = datos[9].replace("\"", "").split(",");
-        this.writer = datos[10].replace("\"", "").split(",");
+        this.director = datos[9].split(",");
+        this.writer = datos[10].split(",");
         this.productionCompany = datos[11];
-        this.actors = datos[12].replace("\"", "").split(",");
+        this.actors = datos[12].split(",");
         this.description = datos[13];
         if(datos[14].length() != 0) {
             this.avgVote = Float.parseFloat(datos[14]);

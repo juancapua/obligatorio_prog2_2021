@@ -25,7 +25,7 @@ public class Generos {
     public boolean equals(Object obj) {
         boolean equalsToReturn = false;
 
-        equalsToReturn = ((Generos) obj).getName().equalsIgnoreCase(this.name);
+        equalsToReturn = ((Generos) obj).getName().equals(this.name);
 
         return equalsToReturn;
     }
