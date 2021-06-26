@@ -178,9 +178,8 @@ public class Reader{
     public void consulta2(){
         long TInicio = System.currentTimeMillis();
 
-        if(entre_consulta2==false) {
+        if(!entre_consulta2) {
             entre_consulta2=true;
-            int i=0;
             for (Movie movie:movieHash){
                 for(MovieCastMember movieCastMember: movie.getListaMovieCastMember()){
                     if ((movieCastMember.getCastMemeber().getCauseOfDeath() != null) && (!movieCastMember.getCastMemeber().isDirector_producer()) && (movieCastMember.getCategory().equals("director") || movieCastMember.getCategory().equals("producer")) && (movieCastMember.getCastMemeber().getPlaceOfBirth().contains("USA") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("UK") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("Italy") || movieCastMember.getCastMemeber().getPlaceOfBirth().contains("France"))) {

@@ -1,6 +1,5 @@
 package Tads;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import static java.lang.Math.abs;

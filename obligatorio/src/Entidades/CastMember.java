@@ -250,26 +250,6 @@ public class CastMember {
         isDirector_producer = true;
     }
 
-    public void separarLugar(String lugar, String ciudad, String region, String pais){
-        if (lugar.length()==0){
-            System.out.println("Esto esta mal");
-            ciudad = null;
-            region = null;
-            pais = null;
-            return;
-        }
-        String[] aux = lugar.split(", ");
-        System.out.println(aux[2]);
-        pais = aux[aux.length-1];
-        if (aux.length>2) {
-            region = aux[aux.length - 2];
-        } else{region=null;}
-        if (aux.length>1){
-            ciudad=aux[0];
-            if (aux.length>=4){ciudad = ciudad + "," + aux[1];}
-        }else{ciudad=null;}
-    }
-
     public int getApariciones() {
         return apariciones;
     }
